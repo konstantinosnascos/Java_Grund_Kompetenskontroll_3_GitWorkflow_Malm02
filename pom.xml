@@ -25,12 +25,11 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-        <!-- Simple backend (prints to console) -->
+        <!-- Logback Classic as logging implementation -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>runtime</scope>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.20</version> <!-- eller senaste kompatibla versionen -->
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
