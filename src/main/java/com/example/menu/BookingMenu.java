@@ -6,6 +6,9 @@ import com.example.exception.BookingConflictException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
+import java.util.*;
+
 import java.time.LocalDateTime;
 
 public class BookingMenu {
@@ -90,4 +93,16 @@ public class BookingMenu {
             logger.warn("Försökte avboka ID {} men hittades inte.", bookingId);
         }
     }
+
+//    private LocalDateTime chooseBookingTime()
+//    {
+//        System.out.println("---> Tillgängliga tider <---");
+//
+//        for(int i = 0; i < 5; i++)
+//        {
+//            times.add(startTime.plusHours(i));
+//        }
+//
+//
+//    }
 }
