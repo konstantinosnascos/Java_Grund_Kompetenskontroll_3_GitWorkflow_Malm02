@@ -52,20 +52,20 @@ public class BookingMenu {
 
     private void createBooking() {
         System.out.println("\n--- Skapa ny bokning ---");
-        String customerId = input.getString("Kund-ID: ");
+        int id = input.getInt("Kund-ID: ");
         String vehicleReg = input.getString("Fordonets registreringsnummer: ");
         LocalDateTime time = input.getDateTime("Bokningstid");
 
         try {
-            bookingService.createBooking(customerId, vehicleReg, time);
+            bookingService.createBooking(id, vehicleReg, time);
             System.out.println("Bokning skapad för " + time);
-            logger.info("Ny bokning skapad för kund: {} vid tid: {}", customerId, time);
+            logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, time);
         } catch (BookingConflictException e) {
             System.out.println("Kan inte boka: " + e.getMessage());
             logger.warn("Dubbelbokning försökte skapas vid tid: {}", time);
         } catch (Exception e) {
             System.out.println("Ett oväntat fel uppstod vid bokning: " + e.getMessage());
-            logger.error("Fel vid bokning med kund {} och fordon {}", customerId, vehicleReg, e);
+            logger.error("Fel vid bokning med kund {} och fordon {}", id, vehicleReg, e);
         }
     }
 

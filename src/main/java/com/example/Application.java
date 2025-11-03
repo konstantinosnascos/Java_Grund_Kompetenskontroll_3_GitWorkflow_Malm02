@@ -25,7 +25,7 @@ public class Application {
     }
 
     public void run() {
-        System.out.println("=== Välkommen till Bilmeckarna AB ===");
+        System.out.println("=== Välkommen till Bilmeckarna AB! ===");
         menuHandler.runMainMenu();
         scanner.close();
         logger.info("Programmet avslutas och Scanner stängs.");
