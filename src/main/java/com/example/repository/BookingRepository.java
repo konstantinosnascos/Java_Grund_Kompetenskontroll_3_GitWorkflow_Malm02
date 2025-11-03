@@ -1,4 +1,4 @@
 package com.example.repository;
 
-public class BookingRepository {
+public class git BookingRepository {
 }
