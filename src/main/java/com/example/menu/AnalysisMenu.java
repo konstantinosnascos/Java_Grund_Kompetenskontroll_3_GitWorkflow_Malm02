@@ -36,7 +36,7 @@ public class AnalysisMenu {
         System.out.println("\n--- Analysmeny ---");
         System.out.println("1. Visa bokningar per vecka");
         System.out.println("2. Topp 3 service-typer");
-        System.out.println("3. Antal bokningar per kund");
+        System.out.println("3. Antal bokningar per kund.");
         System.out.println("4. Gå tillbaka till huvudmenyn");
     }
 
