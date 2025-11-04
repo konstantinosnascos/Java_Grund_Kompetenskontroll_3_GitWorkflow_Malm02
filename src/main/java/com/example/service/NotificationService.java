@@ -1,4 +1,5 @@
 package com.example.service;
 
-public class NotificationService {
+public interface NotificationService {
+    void sendConfirmation(String recipient, String message);
 }
