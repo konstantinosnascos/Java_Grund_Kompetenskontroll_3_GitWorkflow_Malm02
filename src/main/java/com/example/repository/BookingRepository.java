@@ -15,7 +15,7 @@ public class BookingRepository
     public static final Logger LOG = LoggerFactory.getLogger(BookingRepository.class);
     private final Map<Integer, Booking> bookings = new HashMap<>();
     private Map<String, LocalDateTime> timeTable = new HashMap<>();
-    private  int nextId = 1;1
+    private  int nextId = 1;
 
     public BookingRepository()
     {
