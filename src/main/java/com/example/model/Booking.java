@@ -3,39 +3,42 @@ package com.example.model;
 import java.time.LocalDate;
 
 public class Booking {
-    private int id;
-    private String vehicleId;
-    private LocalDate date;
-    private String bookingType;
-    private double price;
-    private String status;
+    private static int idCounter = 1;
 
-    public String getStatus() {
-        return status;
-    }
+    private int bookingID;
+    private Vehicle vehicle;
+    private LocalDate bookingDate;
+    private boolean isCompleted; // false = inte klar, true = klar
+    private String bookingType; // "Service", "Reparation", "Besiktning"
+    private double repairPrice; // används endast för reparation
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price, String status) {
-        this.id = id;
-        this.vehicleId = vehicleId;
-        this.date = date;
-        this.bookingType = bookingType;
-        this.status = status;
+    public Booking(Vehicle vehicle, LocalDate bookingDate, String bookingType) {
+        this.bookingID = idCounter++; // autoincrement
         this.vehicle = vehicle;
-        this.price = vehicle.calculatePrice();
-        this.price = price;
-        this.status = status;
+        this.bookingDate = bookingDate;
+        this.bookingType = bookingType;
+        this.isCompleted = false; // standard: inte klar
+        this.repairPrice = 0.0;
     }
 
-    public int getId() {
-        return id;
+    public int getBookingID() {
+        return bookingID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public LocalDate getBookingDate() {
+        return bookingDate;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 
     public String getVehicleId() {
@@ -62,22 +65,31 @@ public class Booking {
         this.bookingType = bookingType;
     }
 
-    public double getPrice() {
-        return price;
+    public void setRepairPrice(double repairPrice) {
+        this.repairPrice = repairPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    // 🔹 Pris baserat på typ
+    public double getPrice() {
+        switch (bookingType.toLowerCase()) {
+            case "service":
+                return vehicle.getServicePrice(); // fast pris per årsmodell
+            case "besiktning":
+                return 550.0; // fast pris
+            case "reparation":
+                return repairPrice; // flexibelt pris (sätts externt)
+            default:
+                return 0.0;
+        }
     }
 
     @Override
     public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", vehicleId='" + vehicleId + '\'' +
-                ", date=" + date +
-                ", bookingType='" + bookingType + '\'' +
-                ", price=" + price +
-                '}';
+        return "Boknings-ID: " + bookingID +
+                ", Typ: " + bookingType +
+                ", Datum: " + bookingDate +
+                ", Fordon: [" + vehicle + "]" +
+                ", Status: " + (isCompleted ? "Klar" : "Inte klar") +
+                ", Pris: " + getPrice() + " kr";
     }
 }
