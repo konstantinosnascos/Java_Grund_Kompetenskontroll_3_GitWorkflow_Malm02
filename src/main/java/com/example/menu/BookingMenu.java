@@ -4,6 +4,7 @@ import com.example.helper.InputHelper;
 import com.example.model.Booking;
 import com.example.model.Customer;
 import com.example.model.Vehicle;
+import com.example.model.ServiceType;
 import com.example.repository.BookingRepository;
 import com.example.service.BookingService;
 import com.example.exception.BookingConflictException;
@@ -88,8 +89,23 @@ public class BookingMenu {
         Vehicle vehicle = new Vehicle(regNum, model, year);
         System.out.println("\n Fordon tillagt: " + vehicle);
 
-        showAvailableBookings();
+        System.out.println("\nVälj typ av service:");
+        System.out.println("1. Service");
+        System.out.println("2. Reparation");
+        System.out.println("3. Besiktning");
+        int typeChoice = input.getInt("Ditt val (1-3): ");
 
+        ServiceType serviceType = switch (typeChoice)
+        {
+            case 1 -> ServiceType.SERVICE;
+            case 2 -> ServiceType.REPARATION;
+            case 3 -> ServiceType.BESIKTNING;
+            default -> ServiceType.SERVICE;
+        };
+
+        System.out.println("Du valde" + serviceType);
+
+        showAvailableBookings();
         String bookTime = input.getString("Bokningstid: ");
 
         // Hämta vald tid från repository via koden användaren skrev
@@ -111,7 +127,7 @@ public class BookingMenu {
 
         try {
 // Skapa bokningen och hämta tillbaka den
-            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime);
+            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType);
 
             System.out.println("\n✅ Bokning skapad!");
             System.out.println("--------------------------------------");
@@ -124,7 +140,7 @@ public class BookingMenu {
                     newBooking.getVehicle().getRegNum(),
                     newBooking.getVehicle().getYear());
             System.out.printf("Datum:        %s%n", chosenTime.format(FORMATTER));
-            System.out.printf("Typ:          %s%n", newBooking.getBookingType());
+            System.out.printf("Typ:          %s%n", newBooking.getServiceType());
             System.out.printf("Pris:         %.2f kr%n", newBooking.getPrice());
             System.out.printf("Status:       %s%n", newBooking.isCompleted() ? "Klar" : "Bokad");
             System.out.println("--------------------------------------");

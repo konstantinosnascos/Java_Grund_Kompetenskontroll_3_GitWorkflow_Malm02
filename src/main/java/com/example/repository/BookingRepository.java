@@ -95,7 +95,7 @@ public class BookingRepository {
         System.out.println("ID: " + booking.getId());
         System.out.println("Datum: " + booking.getDate());
         //System.out.println("Kund: " + booking.getCustomerName());
-        System.out.println("Tjänst: " + booking.getBookingType());
+        System.out.println("Tjänst: " + booking.getServiceType());
         System.out.println("Pris: " + booking.getPrice());
         System.out.println("Anteckningar: " + booking.isCompleted());
     }

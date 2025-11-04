@@ -8,17 +8,17 @@ public class Booking {
     private int id;
     private Vehicle vehicle;
     private LocalDate date;
-    private String bookingType;        // "Service", "Reparation", "Besiktning"
+    private ServiceType serviceType;        // "Service", "Reparation", "Besiktning"
     private double price;              // fast eller flexibel beroende på typ
     private boolean isCompleted;       // status
     private Customer customer;
 
-    public Booking(int id, Customer customer, Vehicle vehicle, LocalDate date, String bookingType, double price, boolean isCompleted) {
+    public Booking(int id, Customer customer, Vehicle vehicle, LocalDate date, ServiceType serviceType, double price, boolean isCompleted) {
         this.id = id;
         this.customer = customer;
         this.vehicle = vehicle;
         this.date = date;
-        this.bookingType = bookingType;
+        this.serviceType = serviceType;
         this.price = price;
         this.isCompleted = isCompleted;
 
@@ -37,8 +37,8 @@ public class Booking {
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
 
-    public String getBookingType() { return bookingType; }
-    public void setBookingType(String bookingType) { this.bookingType = bookingType; }
+    public ServiceType getServiceType() {return serviceType ;}
+    public void setServiceType(ServiceType serviceType) {this.serviceType = serviceType; }
 
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
@@ -65,7 +65,7 @@ public class Booking {
                 "id=" + id +
                 ", vehicle=" + vehicle +
                 ", date=" + date +
-                ", bookingType='" + bookingType + '\'' +
+                ", bookingType='" + serviceType + '\'' +
                 ", price=" + price +
                 ", isCompleted=" + isCompleted +
                 '}';
