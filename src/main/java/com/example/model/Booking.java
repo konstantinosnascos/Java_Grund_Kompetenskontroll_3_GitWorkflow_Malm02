@@ -23,6 +23,9 @@ public class Booking {
         this.vehicleId = vehicleId;
         this.date = date;
         this.bookingType = bookingType;
+        this.status = status;
+        this.vehicle = vehicle;
+        this.price = vehicle.calculatePrice();
         this.price = price;
         this.status = status;
     }
