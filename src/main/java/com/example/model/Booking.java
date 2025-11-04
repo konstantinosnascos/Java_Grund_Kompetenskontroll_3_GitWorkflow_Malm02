@@ -5,91 +5,63 @@ import java.time.LocalDate;
 public class Booking {
     private static int idCounter = 1;
 
-    private int bookingID;
-    private Vehicle vehicle;
-    private LocalDate bookingDate;
-    private boolean isCompleted; // false = inte klar, true = klar
-    private String bookingType; // "Service", "Reparation", "Besiktning"
-    private double repairPrice; // används endast för reparation
+    private int id;
+    private String vehicleReg;          // enklare att lagra än hela Vehicle-objektet
+    private LocalDate date;
+    private String bookingType;        // "Service", "Reparation", "Besiktning"
+    private double price;              // fast eller flexibel beroende på typ
+    private boolean isCompleted;       // status
 
-    public Booking(Vehicle vehicle, LocalDate bookingDate, String bookingType) {
-        this.bookingID = idCounter++; // autoincrement
-        this.vehicle = vehicle;
-        this.bookingDate = bookingDate;
-        this.bookingType = bookingType;
-        this.isCompleted = false; // standard: inte klar
-        this.repairPrice = 0.0;
-    }
-
-    public int getBookingID() {
-        return bookingID;
-    }
-
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public LocalDate getBookingDate() {
-        return bookingDate;
-    }
-
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
-
-    public String getVehicleId() {
-        return vehicleId;
-    }
-
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
+    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price, boolean isCompleted) {
+        this.id = id;
+        this.vehicleReg = vehicleId;
         this.date = date;
-    }
-
-    public String getBookingType() {
-        return bookingType;
-    }
-
-    public void setBookingType(String bookingType) {
         this.bookingType = bookingType;
+        this.price = price;
+        this.isCompleted = isCompleted;
     }
 
-    public void setRepairPrice(double repairPrice) {
-        this.repairPrice = repairPrice;
+    public int getId() { return id; }
+
+    public String getVehicleReg() { return vehicleReg; }
+
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
+
+    public String getBookingType() { return bookingType; }
+    public void setBookingType(String bookingType) { this.bookingType = bookingType; }
+
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
+
+    public static int getIdCounter() {
+        return idCounter;
     }
 
-    // 🔹 Pris baserat på typ
-    public double getPrice() {
-        switch (bookingType.toLowerCase()) {
-            case "service":
-                return vehicle.getServicePrice(); // fast pris per årsmodell
-            case "besiktning":
-                return 550.0; // fast pris
-            case "reparation":
-                return repairPrice; // flexibelt pris (sätts externt)
-            default:
-                return 0.0;
-        }
+    public static void setIdCounter(int idCounter) {
+        Booking.idCounter = idCounter;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setVehicleReg(String vehicleReg) {
+        this.vehicleReg = vehicleReg;
+    }
+
+    public boolean isCompleted() { return isCompleted; }
+    public void setCompleted(boolean completed) { isCompleted = completed; }
 
     @Override
     public String toString() {
-        return "Boknings-ID: " + bookingID +
-                ", Typ: " + bookingType +
-                ", Datum: " + bookingDate +
-                ", Fordon: [" + vehicle + "]" +
-                ", Status: " + (isCompleted ? "Klar" : "Inte klar") +
-                ", Pris: " + getPrice() + " kr";
+        return "Booking{" +
+                "id=" + id +
+                ", vehicleId='" + vehicleReg + '\'' +
+                ", date=" + date +
+                ", bookingType='" + bookingType + '\'' +
+                ", price=" + price +
+                ", isCompleted=" + isCompleted +
+                '}';
     }
 }

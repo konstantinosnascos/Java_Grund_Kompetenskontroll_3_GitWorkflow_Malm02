@@ -2,3 +2,12 @@
 2025-11-04 10:22:12 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 12 vid tid: 2025-11-06T13:00
 2025-11-04 10:27:08 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
 2025-11-04 10:27:22 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 12 vid tid: torsdag 6 nov. 2025 kl. 13:00
+2025-11-04 14:57:06 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 14:57:26 [main] WARN  com.example.helper.InputHelper - Ogiltig inmatning – användaren skrev inte ett heltal.
+2025-11-04 14:58:36 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 2 vid tid: Tuesday 4 Nov 2025 kl. 09:00
+2025-11-04 15:02:24 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 2 avbokad.
+2025-11-04 15:02:41 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 2 avbokad.
+2025-11-04 15:02:49 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 1233 avbokad.
+2025-11-04 15:03:45 [main] INFO  com.example.menu.CustomerMenu - Ny kund tillagd: sdfs (ID: 2)
+2025-11-04 15:03:59 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 2 – hittades inte.
+2025-11-04 15:05:01 [main] INFO  com.example.menu.AnalysisMenu - Analys: Bokningar denna vecka visade.

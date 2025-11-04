@@ -77,7 +77,7 @@ public class BookingRepository {
             return;
         }
         for(Booking booking : bookings.values()){
-            System.out.println("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", Status: " + booking.getStatus());
+            System.out.println("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", Status: " + booking.isCompleted());
         }
 
     }
@@ -97,7 +97,7 @@ public class BookingRepository {
         //System.out.println("Kund: " + booking.getCustomerName());
         System.out.println("Tjänst: " + booking.getBookingType());
         System.out.println("Pris: " + booking.getPrice());
-        System.out.println("Anteckningar: " + booking.getStatus());
+        System.out.println("Anteckningar: " + booking.isCompleted());
     }
 
     //f-13 Sortera efter ID (stigande)

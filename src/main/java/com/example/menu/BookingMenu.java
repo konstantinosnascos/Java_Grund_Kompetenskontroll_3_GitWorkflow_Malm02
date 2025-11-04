@@ -72,12 +72,12 @@ public class BookingMenu {
 
         // Om koden inte finns
         if (chosenTime == null ) {
-            System.out.println("❌ Ogiltig kod. Ingen bokning skapad.");
+            System.out.println("Ogiltig kod. Ingen bokning skapad.");
             return;
         }
 
         // Om användaren vill avbryta sin bokning
-        String confirm = input.getString("Vill du skapa denna bokning [yes/no]:").trim().toLowerCase();
+        String confirm = input.getString("Vill du skapa denna bokning [(y)es/(n)o]:").trim().toLowerCase();
         if (confirm.equals("n") || confirm.equals("no"))
         {
             logger.info("Användaren valde att avbryta sin bokning");
@@ -87,14 +87,14 @@ public class BookingMenu {
         try {
             bookingService.createBooking(id, vehicleReg, chosenTime);
 
-            System.out.println("✅ Bokning skapad för " + chosenTime.format(FORMATTER));
+            System.out.println("Bokning skapad för " + chosenTime.format(FORMATTER));
             logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, chosenTime.format((FORMATTER)));
 
         } catch (BookingConflictException e) {
-            System.out.println("⚠️ Kan inte boka: " + e.getMessage());
+            System.out.println("Kan inte boka: " + e.getMessage());
             logger.warn("Dubbelbokning försökte skapas vid tidkod {}", bookTime);
         } catch (Exception e) {
-            System.out.println("❌ Ett oväntat fel uppstod: " + e.getMessage());
+            System.out.println("Ett oväntat fel uppstod: " + e.getMessage());
             logger.error("Fel vid bokning med kund {} och fordon {}", id, vehicleReg, e);
         }
     }
