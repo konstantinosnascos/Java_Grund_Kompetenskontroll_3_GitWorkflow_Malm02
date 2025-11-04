@@ -4,6 +4,7 @@ import com.example.model.Booking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,30 @@ public class BookingRepository {
 
     public static final Logger LOG = LoggerFactory.getLogger(BookingRepository.class);
     private final Map<Integer, Booking> bookings = new HashMap<>();
+    private Map<String, LocalDateTime> timeTable = new HashMap<>();
     private  int nextId = 1;
+
+    public BookingRepository()
+    {
+        LocalDateTime start = LocalDateTime.now()
+                .withHour(9).withMinute(0).withSecond(0).withNano(0);
+        int code = 1;
+
+        for (int day = 0; day < 3; day++)
+        {
+            LocalDateTime base = start.plusDays(day);
+            for (int hour = 0; hour < 5; hour++)
+            {
+                LocalDateTime slot = base.plusHours(hour);
+                timeTable.put(String.format("T%03d", code++), slot);
+            }
+        }
+    }
+
+    public Map<String, LocalDateTime> getTimeTable()
+    {
+        return new HashMap<>(timeTable);
+    }
 
     //f1-add bokning
     public void addBooking(Booking booking) {
@@ -49,11 +73,11 @@ public class BookingRepository {
     //f4-visa alla bokningar
     public void displayAllBookings(){
         if(bookings.isEmpty()){
-            LOG.info("Inga bokningar att visa.");
+            System.out.println("Inga bokningar finns.");
             return;
         }
         for(Booking booking : bookings.values()){
-            LOG.info("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", price: " + booking.getPrice());
+            System.out.println("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", Status: " + booking.getStatus());
         }
 
     }
@@ -93,12 +117,12 @@ public class BookingRepository {
     }
 
     //f-13 Sortera efter status (Inte klar först)
-    public List<Booking> getBookingsSortedByStatus() {
-        LOG.info("Sorterar bokningar efter status (Inte klar först).");
-        return bookings.values().stream()
-                .sorted(Comparator.comparing(Booking::isCompleted)) // false först = Inte klar
-                .collect(Collectors.toList());
-    }
+//    public List<Booking> getBookingsSortedByStatus() {
+//        LOG.info("Sorterar bokningar efter status (Inte klar först).");
+//        return bookings.values().stream()
+//                .sorted(Comparator.comparing(Booking::isCompleted)) // false först = Inte klar
+//                .collect(Collectors.toList());
+//    }
 
 
 

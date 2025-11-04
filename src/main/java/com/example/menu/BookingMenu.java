@@ -21,6 +21,9 @@ public class BookingMenu {
     private final BookingService bookingService;
     private static final Logger logger = LoggerFactory.getLogger(BookingMenu.class);
     LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0);
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("EEEE d MMM yyyy 'kl.' HH:mm");
+
 
     public BookingMenu(InputHelper input, BookingService bookingService) {
         this.input = input;
@@ -84,8 +87,8 @@ public class BookingMenu {
         try {
             bookingService.createBooking(id, vehicleReg, chosenTime);
 
-            System.out.println("✅ Bokning skapad för " + chosenTime);
-            logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, chosenTime);
+            System.out.println("✅ Bokning skapad för " + chosenTime.format(FORMATTER));
+            logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, chosenTime.format((FORMATTER)));
 
         } catch (BookingConflictException e) {
             System.out.println("⚠️ Kan inte boka: " + e.getMessage());
@@ -112,13 +115,12 @@ public class BookingMenu {
         System.out.println("\n---> Tillgängliga tider <---");
 
         var times = bookingService.getAvailableTimes();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE d MMM yyyy 'kl'. HH:mm");
+        
         times.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .forEach(entry-> System.out.printf("%s → %s%n ",
                         entry.getKey(),
-                        entry.getValue().format(formatter)));
+                        entry.getValue().format(FORMATTER)));
 
 
     }

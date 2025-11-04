@@ -1,0 +1,4 @@
+2025-11-04 10:21:59 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 10:22:12 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 12 vid tid: 2025-11-06T13:00
+2025-11-04 10:27:08 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 10:27:22 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 12 vid tid: torsdag 6 nov. 2025 kl. 13:00
