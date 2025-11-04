@@ -2,16 +2,16 @@ package com.example.menu;
 import com.example.helper.RegistrationValidator;
 import com.example.helper.InputHelper;
 import com.example.model.Booking;
+import com.example.model.Customer;
+import com.example.model.Vehicle;
 import com.example.repository.BookingRepository;
 import com.example.service.BookingService;
 import com.example.exception.BookingConflictException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -62,18 +62,31 @@ public class BookingMenu {
 
     private void showCreateBooking()
     {
-        String vehicleReg;
+
 
         System.out.println("\n--- Skapa ny bokning ---");
-        int id = input.getInt("Kund-ID: ");
+        String name = input.getString("Kundens namn & efternamn:  ");
+        String email = input.getString("Kundens e-postadress: ");
+        Customer customer = new Customer();
+        customer.setName(name);
+        customer.setEmail(email);
+
+        System.out.println("\nAnge fordonsuppgifter:");
+        String regNum;
 
         do{
-            vehicleReg = input.getString("Fordonets registreringsnummer (t.ex. ABC12A ");
-            if (!validator.isValid(vehicleReg)){
+            regNum = input.getString("Fordonets registreringsnummer (t.ex. ABC12A): ");
+                if (!validator.isValid(regNum)){
                 System.out.println("Felaktig format. Försök igen! (format: AAA-99(A/9))");
 
             }
-        } while (!validator.isValid(vehicleReg));
+        } while (!validator.isValid(regNum));
+
+        String model = input.getString("Bilmodel: ");
+        int year = input.getInt("Årsmodell: ");
+
+        Vehicle vehicle = new Vehicle(regNum, model, year);
+        System.out.println("\n Fordon tillagt: " + vehicle);
 
         showAvailableBookings();
 
@@ -98,20 +111,27 @@ public class BookingMenu {
 
         try {
 // Skapa bokningen och hämta tillbaka den
-            Booking newBooking = bookingService.createBooking(id, vehicleReg, chosenTime);
+            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime);
 
-            System.out.println("\nBokning skapad!");
+            System.out.println("\n✅ Bokning skapad!");
             System.out.println("--------------------------------------");
-            System.out.println("Boknings-ID: " + newBooking.getId());
-            System.out.println("Fordon:      " + newBooking.getVehicleReg());
-            System.out.println("Datum:       " + chosenTime.format(FORMATTER));
-            System.out.println("Typ:         " + newBooking.getBookingType());
-            System.out.printf("Pris:        %.2f kr%n", newBooking.getPrice());
-            System.out.println("Status:      " + (newBooking.isCompleted() ? "Klar" : "Bokad"));
+            System.out.printf("Boknings-ID:  %d%n", newBooking.getId());
+            System.out.printf("Kund:         %s (%s)%n",
+                    newBooking.getCustomer().getName(),
+                    newBooking.getCustomer().getEmail());
+            System.out.printf("Fordon:       %s (%s, %d)%n",
+                    newBooking.getVehicle().getModel(),
+                    newBooking.getVehicle().getRegNum(),
+                    newBooking.getVehicle().getYear());
+            System.out.printf("Datum:        %s%n", chosenTime.format(FORMATTER));
+            System.out.printf("Typ:          %s%n", newBooking.getBookingType());
+            System.out.printf("Pris:         %.2f kr%n", newBooking.getPrice());
+            System.out.printf("Status:       %s%n", newBooking.isCompleted() ? "Klar" : "Bokad");
             System.out.println("--------------------------------------");
 
 
-            logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, chosenTime.format(FORMATTER));
+
+            logger.info("Ny bokning skapad för kund: {} vid tid: {}", name, chosenTime.format(FORMATTER));
 ;
 
         } catch (BookingConflictException e) {
@@ -119,7 +139,7 @@ public class BookingMenu {
             logger.warn("Dubbelbokning försökte skapas vid tidkod {}", bookTime);
         } catch (Exception e) {
             System.out.println("Ett oväntat fel uppstod: " + e.getMessage());
-            logger.error("Fel vid bokning med kund {} och fordon {}", id, vehicleReg, e);
+            logger.error("Fel vid bokning med kund {} och fordon {}", name, regNum, e);
         }
     }
 

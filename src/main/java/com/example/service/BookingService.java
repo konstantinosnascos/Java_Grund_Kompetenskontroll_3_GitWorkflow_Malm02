@@ -1,6 +1,8 @@
 package com.example.service;
 
 import com.example.model.Booking;
+import com.example.model.Customer;
+import com.example.model.Vehicle;
 import com.example.repository.BookingRepository;
 
 import java.awt.print.Book;
@@ -14,10 +16,12 @@ public class BookingService {
 
     public final BookingRepository bookingRepository = new BookingRepository();
 
-    public Booking createBooking(int id, String vehicleReg, LocalDateTime dateTime)
+    public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime)
     {
         LocalDate date = dateTime.toLocalDate();
-        Booking booking = new Booking(id, vehicleReg, date, "Service", 0.0, false);
+        double price = vehicle.getServicePrice();
+        Booking booking = new Booking(0, customer, vehicle, date, "Service", price, false);
+
 
         bookingRepository.addBooking(booking);
         return booking;

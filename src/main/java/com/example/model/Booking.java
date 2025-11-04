@@ -6,24 +6,33 @@ public class Booking {
     private static int idCounter = 1;
 
     private int id;
-    private String vehicleReg;          // enklare att lagra än hela Vehicle-objektet
+    private Vehicle vehicle;
     private LocalDate date;
     private String bookingType;        // "Service", "Reparation", "Besiktning"
     private double price;              // fast eller flexibel beroende på typ
     private boolean isCompleted;       // status
+    private Customer customer;
 
-    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price, boolean isCompleted) {
+    public Booking(int id, Customer customer, Vehicle vehicle, LocalDate date, String bookingType, double price, boolean isCompleted) {
         this.id = id;
-        this.vehicleReg = vehicleId;
+        this.customer = customer;
+        this.vehicle = vehicle;
         this.date = date;
         this.bookingType = bookingType;
         this.price = price;
         this.isCompleted = isCompleted;
+
     }
+
+
 
     public int getId() { return id; }
 
-    public String getVehicleReg() { return vehicleReg; }
+    public Customer getCustomer() {return customer;}
+    public void setCustomer(Customer customer) {this.customer = customer;}
+
+    public Vehicle getVehicle() {return vehicle;}
+    public void setVehicle(Vehicle vehicle) {this.vehicle = vehicle;}
 
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
@@ -46,9 +55,6 @@ public class Booking {
         this.id = id;
     }
 
-    public void setVehicleReg(String vehicleReg) {
-        this.vehicleReg = vehicleReg;
-    }
 
     public boolean isCompleted() { return isCompleted; }
     public void setCompleted(boolean completed) { isCompleted = completed; }
@@ -57,7 +63,7 @@ public class Booking {
     public String toString() {
         return "Booking{" +
                 "id=" + id +
-                ", vehicleId='" + vehicleReg + '\'' +
+                ", vehicle=" + vehicle +
                 ", date=" + date +
                 ", bookingType='" + bookingType + '\'' +
                 ", price=" + price +
