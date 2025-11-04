@@ -1,4 +1,4 @@
-git add .
+
 <configuration>
 
     <!-- Filappender: loggar till en fil -->
