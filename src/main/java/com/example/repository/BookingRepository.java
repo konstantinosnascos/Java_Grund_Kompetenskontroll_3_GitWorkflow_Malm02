@@ -11,19 +11,7 @@ public class BookingRepository {
 
     public static final Logger LOG = LoggerFactory.getLogger(BookingRepository.class);
     private final Map<Integer, Booking> bookings = new HashMap<>();
-    private  int nextId = 1;
-
-
-    public void addBooking(Booking booking)
-    {
-        int id = nextId++;
-        booking.setId(id);
-        bookings.put(id, booking);
-
-
-
-
-    }
+    //private  int bookingId = 1;
 
     //f2- redigera  bokning
     public boolean editBooking(int id, Booking updatedBooking) {
@@ -49,21 +37,15 @@ public class BookingRepository {
     }
 
     //f4-visa alla bokningar
-//    public void displayAllBookings(){
-//        if(bookings.isEmpty()){
-//            System.out.println("Inga bokningar finns.");
-//            return;
-//        }
-//        for(Booking booking : bookings.values()){
-//            System.out.println("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", Status: " + booking.getStatus());
-//        }
-//
-//    }
+    public void displayAllBookings(){
+        if(bookings.isEmpty()){
+            System.out.println("Inga bokningar finns.");
+            return;
+        }
+        for(Booking booking : bookings.values()){
+            System.out.println("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", price: " + booking.getPrice());
+        }
 
-
+    }
 
 }
-
-
-
-
