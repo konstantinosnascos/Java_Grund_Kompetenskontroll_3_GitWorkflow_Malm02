@@ -1,21 +1,26 @@
 package com.example.menu;
 
 import com.example.helper.InputHelper;
+import com.example.repository.BookingRepository;
 import com.example.service.BookingService;
 import com.example.exception.BookingConflictException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class BookingMenu {
 
     private final InputHelper input;
     private final BookingService bookingService;
     private static final Logger logger = LoggerFactory.getLogger(BookingMenu.class);
+    LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0);
 
     public BookingMenu(InputHelper input, BookingService bookingService) {
         this.input = input;
@@ -29,8 +34,8 @@ public class BookingMenu {
                 printMenu();
                 int choice = input.getInt("Välj ett alternativ: ");
                 switch (choice) {
-                    case 1 -> createBooking();
-                    case 2 -> listAllBookings();
+                    case 1 -> showCreateBooking();
+                    case 2 -> showAllBookings();
                     case 3 -> cancelBooking();
                     case 4 -> running = false;
                     default -> System.out.println("Felaktigt val, försök igen!");
@@ -50,26 +55,48 @@ public class BookingMenu {
         System.out.println("4. Gå tillbaka till huvudmenyn");
     }
 
-    private void createBooking() {
+    private void showCreateBooking()
+    {
         System.out.println("\n--- Skapa ny bokning ---");
         int id = input.getInt("Kund-ID: ");
         String vehicleReg = input.getString("Fordonets registreringsnummer: ");
-        LocalDateTime time = input.getDateTime("Bokningstid");
+        showAvailableBookings();
+
+        String bookTime = input.getString("Bokningstid: ");
+
+        // Hämta vald tid från repository via koden användaren skrev
+        LocalDateTime chosenTime = bookingService.bookingRepository.getTimeTable().get(bookTime);
+
+        // Om koden inte finns
+        if (chosenTime == null ) {
+            System.out.println("❌ Ogiltig kod. Ingen bokning skapad.");
+            return;
+        }
+
+        // Om användaren vill avbryta sin bokning
+        String confirm = input.getString("Vill du skapa denna bokning [yes/no]:").trim().toLowerCase();
+        if (confirm.equals("n") || confirm.equals("no"))
+        {
+            logger.info("Användaren valde att avbryta sin bokning");
+            return;
+        }
 
         try {
-            bookingService.createBooking(id, vehicleReg, time);
-            System.out.println("Bokning skapad för " + time);
-            logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, time);
+            bookingService.createBooking(id, vehicleReg, chosenTime);
+
+            System.out.println("✅ Bokning skapad för " + chosenTime);
+            logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, chosenTime);
+
         } catch (BookingConflictException e) {
-            System.out.println("Kan inte boka: " + e.getMessage());
-            logger.warn("Dubbelbokning försökte skapas vid tid: {}", time);
+            System.out.println("⚠️ Kan inte boka: " + e.getMessage());
+            logger.warn("Dubbelbokning försökte skapas vid tidkod {}", bookTime);
         } catch (Exception e) {
-            System.out.println("Ett oväntat fel uppstod vid bokning: " + e.getMessage());
+            System.out.println("❌ Ett oväntat fel uppstod: " + e.getMessage());
             logger.error("Fel vid bokning med kund {} och fordon {}", id, vehicleReg, e);
         }
     }
 
-    private void listAllBookings() {
+    private void showAllBookings() {
         System.out.println("\n--- Alla bokningar ---");
         var bookings = bookingService.getAllBookings();
         if (bookings.isEmpty()) {
@@ -78,6 +105,22 @@ public class BookingMenu {
             return;
         }
         bookings.forEach(System.out::println);
+    }
+
+    private void showAvailableBookings()
+    {
+        System.out.println("\n---> Tillgängliga tider <---");
+
+        var times = bookingService.getAvailableTimes();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE d MMM yyyy 'kl'. HH:mm");
+        times.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEach(entry-> System.out.printf("%s → %s%n ",
+                        entry.getKey(),
+                        entry.getValue().format(formatter)));
+
+
     }
 
     private void cancelBooking() {

@@ -8,13 +8,23 @@ public class Booking {
     private LocalDate date;
     private String bookingType;
     private double price;
+    private String status;
 
-    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price, String status) {
         this.id = id;
         this.vehicleId = vehicleId;
         this.date = date;
         this.bookingType = bookingType;
         this.price = price;
+        this.status = status;
     }
 
     public int getId() {
