@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.model.Booking;
 import com.example.repository.BookingRepository;
 
+import java.awt.print.Book;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,14 +14,14 @@ public class BookingService {
 
     public final BookingRepository bookingRepository = new BookingRepository();
 
-    public void createBooking(int id, String vehicleReg, LocalDateTime dateTime)
+    public Booking createBooking(int id, String vehicleReg, LocalDateTime dateTime)
     {
         LocalDate date = dateTime.toLocalDate();
-        Booking booking = new Booking(id, vehicleReg, date, "Service", 0.0, "");
+        Booking booking = new Booking(id, vehicleReg, date, "Service", 0.0, false);
 
         bookingRepository.addBooking(booking);
+        return booking;
 
-        System.out.println("Bokning skapad:" + booking);
 
     }
 

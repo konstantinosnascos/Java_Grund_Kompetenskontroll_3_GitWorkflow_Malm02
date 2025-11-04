@@ -1,6 +1,7 @@
 package com.example.menu;
-
+import com.example.helper.RegistrationValidator;
 import com.example.helper.InputHelper;
+import com.example.model.Booking;
 import com.example.repository.BookingRepository;
 import com.example.service.BookingService;
 import com.example.exception.BookingConflictException;
@@ -18,6 +19,7 @@ import java.util.LinkedList;
 public class BookingMenu {
 
     private final InputHelper input;
+    private final RegistrationValidator validator = new RegistrationValidator();
     private final BookingService bookingService;
     private static final Logger logger = LoggerFactory.getLogger(BookingMenu.class);
     LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0);
@@ -60,24 +62,34 @@ public class BookingMenu {
 
     private void showCreateBooking()
     {
+        String vehicleReg;
+
         System.out.println("\n--- Skapa ny bokning ---");
         int id = input.getInt("Kund-ID: ");
-        String vehicleReg = input.getString("Fordonets registreringsnummer: ");
+
+        do{
+            vehicleReg = input.getString("Fordonets registreringsnummer (t.ex. ABC12A ");
+            if (!validator.isValid(vehicleReg)){
+                System.out.println("Felaktig format. Försök igen! (format: AAA-99(A/9))");
+
+            }
+        } while (!validator.isValid(vehicleReg));
+
         showAvailableBookings();
 
         String bookTime = input.getString("Bokningstid: ");
 
         // Hämta vald tid från repository via koden användaren skrev
-        LocalDateTime chosenTime = bookingService.bookingRepository.getTimeTable().get(bookTime);
+        LocalDateTime chosenTime = bookingService.getAvailableTimes().get(bookTime);
 
         // Om koden inte finns
         if (chosenTime == null ) {
-            System.out.println("❌ Ogiltig kod. Ingen bokning skapad.");
+            System.out.println("Ogiltig kod. Ingen bokning skapad.");
             return;
         }
 
         // Om användaren vill avbryta sin bokning
-        String confirm = input.getString("Vill du skapa denna bokning [yes/no]:").trim().toLowerCase();
+        String confirm = input.getString("Vill du skapa denna bokning [(y)es/(n)o]:").trim().toLowerCase();
         if (confirm.equals("n") || confirm.equals("no"))
         {
             logger.info("Användaren valde att avbryta sin bokning");
@@ -85,16 +97,28 @@ public class BookingMenu {
         }
 
         try {
-            bookingService.createBooking(id, vehicleReg, chosenTime);
+// Skapa bokningen och hämta tillbaka den
+            Booking newBooking = bookingService.createBooking(id, vehicleReg, chosenTime);
 
-            System.out.println("✅ Bokning skapad för " + chosenTime.format(FORMATTER));
-            logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, chosenTime.format((FORMATTER)));
+            System.out.println("\nBokning skapad!");
+            System.out.println("--------------------------------------");
+            System.out.println("Boknings-ID: " + newBooking.getId());
+            System.out.println("Fordon:      " + newBooking.getVehicleReg());
+            System.out.println("Datum:       " + chosenTime.format(FORMATTER));
+            System.out.println("Typ:         " + newBooking.getBookingType());
+            System.out.printf("Pris:        %.2f kr%n", newBooking.getPrice());
+            System.out.println("Status:      " + (newBooking.isCompleted() ? "Klar" : "Bokad"));
+            System.out.println("--------------------------------------");
+
+
+            logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, chosenTime.format(FORMATTER));
+;
 
         } catch (BookingConflictException e) {
-            System.out.println("⚠️ Kan inte boka: " + e.getMessage());
+            System.out.println("Kan inte boka: " + e.getMessage());
             logger.warn("Dubbelbokning försökte skapas vid tidkod {}", bookTime);
         } catch (Exception e) {
-            System.out.println("❌ Ett oväntat fel uppstod: " + e.getMessage());
+            System.out.println("Ett oväntat fel uppstod: " + e.getMessage());
             logger.error("Fel vid bokning med kund {} och fordon {}", id, vehicleReg, e);
         }
     }
@@ -139,15 +163,4 @@ public class BookingMenu {
         }
     }
 
-//    private LocalDateTime chooseBookingTime()
-//    {
-//        System.out.println("---> Tillgängliga tider <---");
-//
-//        for(int i = 0; i < 5; i++)
-//        {
-//            times.add(startTime.plusHours(i));
-//        }
-//
-//
-//    }
 }

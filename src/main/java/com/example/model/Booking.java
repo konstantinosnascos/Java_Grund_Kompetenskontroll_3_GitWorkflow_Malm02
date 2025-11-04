@@ -3,81 +3,65 @@ package com.example.model;
 import java.time.LocalDate;
 
 public class Booking {
+    private static int idCounter = 1;
+
     private int id;
-    private String vehicleId;
+    private String vehicleReg;          // enklare att lagra än hela Vehicle-objektet
     private LocalDate date;
-    private String bookingType;
-    private double price;
-    private String status;
+    private String bookingType;        // "Service", "Reparation", "Besiktning"
+    private double price;              // fast eller flexibel beroende på typ
+    private boolean isCompleted;       // status
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price, String status) {
+    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price, boolean isCompleted) {
         this.id = id;
-        this.vehicleId = vehicleId;
+        this.vehicleReg = vehicleId;
         this.date = date;
         this.bookingType = bookingType;
-        this.status = status;
-        this.vehicle = vehicle;
-        this.price = vehicle.calculatePrice();
         this.price = price;
-        this.status = status;
+        this.isCompleted = isCompleted;
     }
 
-    public int getId() {
-        return id;
+    public int getId() { return id; }
+
+    public String getVehicleReg() { return vehicleReg; }
+
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
+
+    public String getBookingType() { return bookingType; }
+    public void setBookingType(String bookingType) { this.bookingType = bookingType; }
+
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
+
+    public static int getIdCounter() {
+        return idCounter;
+    }
+
+    public static void setIdCounter(int idCounter) {
+        Booking.idCounter = idCounter;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getVehicleId() {
-        return vehicleId;
+    public void setVehicleReg(String vehicleReg) {
+        this.vehicleReg = vehicleReg;
     }
 
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public String getBookingType() {
-        return bookingType;
-    }
-
-    public void setBookingType(String bookingType) {
-        this.bookingType = bookingType;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    public boolean isCompleted() { return isCompleted; }
+    public void setCompleted(boolean completed) { isCompleted = completed; }
 
     @Override
     public String toString() {
         return "Booking{" +
                 "id=" + id +
-                ", vehicleId='" + vehicleId + '\'' +
+                ", vehicleId='" + vehicleReg + '\'' +
                 ", date=" + date +
                 ", bookingType='" + bookingType + '\'' +
                 ", price=" + price +
+                ", isCompleted=" + isCompleted +
                 '}';
     }
 }
