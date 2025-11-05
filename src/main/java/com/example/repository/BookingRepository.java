@@ -35,6 +35,10 @@ public class BookingRepository {
         }
     }
 
+    public List<Booking> getBookings() {
+        return List.copyOf(bookings.values());
+    }
+
     public Map<String, LocalDateTime> getTimeTable()
     {
         return new HashMap<>(timeTable);
