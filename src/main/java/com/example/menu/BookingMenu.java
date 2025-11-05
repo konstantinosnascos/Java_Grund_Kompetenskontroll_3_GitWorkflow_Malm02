@@ -7,9 +7,13 @@ import com.example.model.Vehicle;
 import com.example.model.ServiceType;
 import com.example.repository.BookingRepository;
 import com.example.service.BookingService;
+import com.example.service.EmailService;
 import com.example.exception.BookingConflictException;
+import com.example.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -22,15 +26,17 @@ public class BookingMenu {
     private final InputHelper input;
     private final RegistrationValidator validator = new RegistrationValidator();
     private final BookingService bookingService;
+    private final EmailService emailService;
     private static final Logger logger = LoggerFactory.getLogger(BookingMenu.class);
     LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0);
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("EEEE d MMM yyyy 'kl.' HH:mm");
 
 
-    public BookingMenu(InputHelper input, BookingService bookingService) {
+    public BookingMenu(InputHelper input, BookingService bookingService, EmailService emailService) {
         this.input = input;
         this.bookingService = bookingService;
+        this.emailService = emailService;
     }
 
     public void run() {
@@ -43,6 +49,7 @@ public class BookingMenu {
                     case 1 -> showCreateBooking();
                     case 2 -> showAllBookings();
                     case 3 -> cancelBooking();
+                    case 5 -> completeBooking();
                     case 4 -> running = false;
                     default -> System.out.println("Felaktigt val, försök igen!");
                 }
@@ -58,6 +65,7 @@ public class BookingMenu {
         System.out.println("1. Skapa ny bokning");
         System.out.println("2. Visa alla bokningar");
         System.out.println("3. Avboka");
+        System.out.println("5. Avsluta bokning");
         System.out.println("4. Gå tillbaka till huvudmenyn");
     }
 
@@ -199,4 +207,76 @@ public class BookingMenu {
         }
     }
 
+    private void completeBooking()
+    {
+        System.out.println("\n---Markera bokning som klar---");
+
+        var allBookings = bookingService.getAllBookings();
+        var pendingBookings = allBookings.stream()
+                .filter(b -> !b.isCompleted())
+                .toList();
+
+        if (pendingBookings.isEmpty())
+        {
+            System.out.println("Inga oavslutade bokningar finns");
+            return;
+        }
+
+        System.out.println("\n Pågående bokningar: ");
+        pendingBookings.forEach(b-> System.out.printf("ID: %d \t Kund: %s \t Typ: %s \t Datum: %s%n"
+                , b.getId(), b.getCustomer().getName(), b.getServiceType(), b.getDate()
+        ));
+
+        int bookingId = input.getInt("\n Skriv boknings-ID att markera som klar: ");
+
+        Booking booking = allBookings.stream()
+                .filter(b->b.getId() == bookingId)
+                .findFirst()
+                .orElse(null);
+
+        if (booking== null)
+        {
+            System.out.println("Bokning hittades inte.");
+            logger.warn("Kunde inte markera bokning {} som klar för den hittades inte", bookingId);
+            return;
+        }
+
+        if (booking.isCompleted())
+        {
+            System.out.println("Bokningen är redan klar");
+            return;
+        }
+
+        Double reparationPrice = null;
+        if (booking.getServiceType() == ServiceType.REPARATION)
+        {
+            System.out.println("\nDenna bokning är en reparation och behöver prissättas högre än 0 kr.");
+            reparationPrice = input.getDouble("Ange slutgiltigt pris för reparationen: ");
+
+            if (reparationPrice<=0)
+            {
+                System.out.println("Priset måste vara högre än 0.");
+                return;
+            }
+        }
+
+        boolean klar = bookingService.completeBooking(bookingId, reparationPrice);
+
+        if (klar)
+        {
+            System.out.println("Bokningen är avklarad.");
+            System.out.println("Boknings-ID: " + booking.getId()
+                    + " för kunden " + booking.getCustomer().getName()
+                    + " är avslutad och kostar " + booking.getPrice()
+                    + " och ett mejl kommer skickas till " + booking.getCustomer().getEmail()
+                    + " för att informera om att bilen är redo att hämtas.");
+
+            emailService.sendCompletionNotification(booking);
+            logger.info("Bokningen med ID {} är markerad som klar.", bookingId);
+        } else
+        {
+            System.out.println("Kunde inte markera som klar.");
+            logger.warn("Kunde inte markera bokning som klar.");
+        }
+    }
 }

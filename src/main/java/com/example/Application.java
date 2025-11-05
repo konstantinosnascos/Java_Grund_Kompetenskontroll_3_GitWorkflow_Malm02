@@ -4,6 +4,7 @@ import com.example.menu.MenuHandler;
 import com.example.service.BookingService;
 import com.example.service.CustomerService;
 import com.example.service.AnalysisService;
+import com.example.service.EmailService;
 
 import java.util.Scanner;
 
@@ -15,8 +16,9 @@ public class Application {
     private final Scanner scanner = new Scanner(System.in);
     private final BookingService bookingService = new BookingService();
     private final CustomerService customerService = new CustomerService();
+    private final EmailService emailService = new EmailService();
     private final AnalysisService analysisService = new AnalysisService(bookingService, customerService);
-    private final MenuHandler menuHandler = new MenuHandler(scanner, bookingService, customerService, analysisService);
+    private final MenuHandler menuHandler = new MenuHandler(scanner, bookingService, customerService, analysisService, emailService);
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 

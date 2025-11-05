@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.model.Booking;
+
 public interface NotificationService {
-    void sendConfirmation(String recipient, String message);
+    void sendCompletionNotification(Booking booking);
 }
