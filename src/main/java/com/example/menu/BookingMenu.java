@@ -63,8 +63,6 @@ public class BookingMenu {
 
     private void showCreateBooking()
     {
-
-
         System.out.println("\n--- Skapa ny bokning ---");
         String name = input.getString("Kundens namn & efternamn:  ");
         String email = input.getString("Kundens e-postadress: ");
@@ -128,22 +126,23 @@ public class BookingMenu {
         try {
 // Skapa bokningen och hämta tillbaka den
             Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType);
+            newBooking.printInfo(FORMATTER);
 
-            System.out.println("\n✅ Bokning skapad!");
-            System.out.println("--------------------------------------");
-            System.out.printf("Boknings-ID:  %d%n", newBooking.getId());
-            System.out.printf("Kund:         %s (%s)%n",
-                    newBooking.getCustomer().getName(),
-                    newBooking.getCustomer().getEmail());
-            System.out.printf("Fordon:       %s (%s, %d)%n",
-                    newBooking.getVehicle().getModel(),
-                    newBooking.getVehicle().getRegNum(),
-                    newBooking.getVehicle().getYear());
-            System.out.printf("Datum:        %s%n", chosenTime.format(FORMATTER));
-            System.out.printf("Typ:          %s%n", newBooking.getServiceType());
-            System.out.printf("Pris:         %.2f kr%n", newBooking.getPrice());
-            System.out.printf("Status:       %s%n", newBooking.isCompleted() ? "Klar" : "Bokad");
-            System.out.println("--------------------------------------");
+//            System.out.println("\n✅ Bokning skapad!");
+//            System.out.println("--------------------------------------");
+//            System.out.printf("Boknings-ID:  %d%n", newBooking.getId());
+//            System.out.printf("Kund:         %s (%s)%n",
+//                    newBooking.getCustomer().getName(),
+//                    newBooking.getCustomer().getEmail());
+//            System.out.printf("Fordon:       %s (%s, %d)%n",
+//                    newBooking.getVehicle().getModel(),
+//                    newBooking.getVehicle().getRegNum(),
+//                    newBooking.getVehicle().getYear());
+//            System.out.printf("Datum:        %s%n", chosenTime.format(FORMATTER));
+//            System.out.printf("Typ:          %s%n", newBooking.getServiceType());
+//            System.out.printf("Pris:         %.2f kr%n", newBooking.getPrice());
+//            System.out.printf("Status:       %s%n", newBooking.isCompleted() ? "Klar" : "Bokad");
+//            System.out.println("--------------------------------------");
 
 
 
