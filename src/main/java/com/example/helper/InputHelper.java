@@ -81,24 +81,57 @@ public class InputHelper {
         }
     }
 
-    public LocalDateTime getDateTime(String prompt) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        while (true) {
-            System.out.print(prompt + " (ÅÅÅÅ-MM-DD HH:MM): ");
-            String input = scan.nextLine().trim();
 
-            input = input.trim();
+    /**
+     * Läser in en sträng från användaren som är valfri.
+     * Om användaren bara trycker Enter returneras en tom sträng.
+     * Används t.ex. vid redigering där användaren kan välja att behålla nuvarande värde.
+     */
+    public String getOptionalString(String prompt) {
+        System.out.print(prompt);
+        return scan.nextLine().trim();
+    }
 
-            if (input.contains(".")) {
-                input = input.replace(".", ":");
-            }
-
-            try {
-                return LocalDateTime.parse(input, formatter);
-            } catch (DateTimeParseException e) {
-                System.out.println("Ogiltigt datumformat. Använd: ÅÅÅÅ-MM-DD HH:MM (t.ex. 2025-04-07 14:30)");
-                logger.warn("Ogiltig inmatning av datum/tid: '{}'", input);
-            }
+    /**
+     * Läser in ett heltal från användaren som är valfritt.
+     * Om användaren bara trycker Enter returneras -1 som signal att inget nytt värde angavs.
+     * Används t.ex. vid redigering där användaren kan hoppa över fält.
+     */
+    public int getOptionalInt(String prompt) {
+        System.out.print(prompt);
+        String input = scan.nextLine().trim();
+        if (input.isBlank()) return -1;
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Felaktigt tal. Inget ändrat.");
+            logger.warn("Ogiltig siffra i getOptionalInt(): {}", input);
+            return -1;
         }
     }
+
+    /**
+     * Läser in ett valfritt datum och tid från användaren i formatet yyyy-MM-dd HH:mm.
+     * Om användaren trycker Enter returneras null, vilket betyder att det gamla värdet ska behållas.
+     */
+    public LocalDateTime getOptionalDateTime(String prompt) {
+        System.out.print(prompt);
+        String input = scan.nextLine().trim();
+
+        if (input.isBlank()) {
+            return null; // Användaren vill behålla nuvarande datum
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        try {
+            return LocalDateTime.parse(input, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("❌ Fel format. Använd: yyyy-MM-dd HH:mm (t.ex. 2025-11-06 09:30)");
+            logger.warn("Ogiltigt datumformat: {}", input);
+            return null;
+        }
+    }
+
+
+
 }

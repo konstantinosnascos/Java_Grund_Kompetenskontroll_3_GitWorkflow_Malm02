@@ -1,37 +1,46 @@
 package com.example.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Booking {
     private static int idCounter = 1;
 
     private int id;
-    private String vehicleReg;          // enklare att lagra än hela Vehicle-objektet
-    private LocalDate date;
-    private String bookingType;        // "Service", "Reparation", "Besiktning"
+    private Vehicle vehicle;
+    private LocalDateTime date;
+    private ServiceType serviceType;        // "Service", "Reparation", "Besiktning"
     private double price;              // fast eller flexibel beroende på typ
     private boolean isCompleted;       // status
-    private String email;              // 🔹 kundens e-postadress
+    private Customer customer;
 
-    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price, boolean isCompleted, String email) {
+    public Booking(int id, Customer customer, Vehicle vehicle, LocalDateTime date, ServiceType serviceType, double price, boolean isCompleted) {
         this.id = id;
-        this.vehicleReg = vehicleId;
+        this.customer = customer;
+        this.vehicle = vehicle;
         this.date = date;
-        this.bookingType = bookingType;
+        this.serviceType = serviceType;
         this.price = price;
         this.isCompleted = isCompleted;
-        this.email = email;
+
     }
+
+
 
     public int getId() { return id; }
 
-    public String getVehicleReg() { return vehicleReg; }
+    public Customer getCustomer() {return customer;}
+    public void setCustomer(Customer customer) {this.customer = customer;}
 
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
+    public Vehicle getVehicle() {return vehicle;}
+    public void setVehicle(Vehicle vehicle) {this.vehicle = vehicle;}
 
-    public String getBookingType() { return bookingType; }
-    public void setBookingType(String bookingType) { this.bookingType = bookingType; }
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
+
+    public ServiceType getServiceType() {return serviceType ;}
+    public void setServiceType(ServiceType serviceType) {this.serviceType = serviceType; }
 
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
@@ -48,26 +57,32 @@ public class Booking {
         this.id = id;
     }
 
-    public void setVehicleReg(String vehicleReg) {
-        this.vehicleReg = vehicleReg;
-    }
 
     public boolean isCompleted() { return isCompleted; }
     public void setCompleted(boolean completed) { isCompleted = completed; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
 
     @Override
     public String toString() {
         return "Booking{" +
                 "id=" + id +
-                ", vehicleId='" + vehicleReg + '\'' +
+                ", vehicle=" + vehicle +
                 ", date=" + date +
-                ", bookingType='" + bookingType + '\'' +
+                ", bookingType='" + serviceType + '\'' +
                 ", price=" + price +
                 ", isCompleted=" + isCompleted +
-                ", email='" + email + '\'' +
                 '}';
+    }
+
+    public void printInfo(DateTimeFormatter formatter)
+    {
+        System.out.println("--------------------------------------");
+        System.out.printf("Boknings-ID:  %d%n", id);
+        System.out.printf("Kund:         %s (%s)%n", customer.getName(), customer.getEmail());
+        System.out.printf("Fordon:       %s (%s, %d)%n", vehicle.getModel(), vehicle.getRegNum(), vehicle.getYear());
+        System.out.printf("Datum:        %s%n", date.format(formatter));
+        System.out.printf("Typ:          %s%n", serviceType);
+        System.out.printf("Pris:         %.2f kr%n", price);
+        System.out.printf("Status:       %s%n", isCompleted ? "Klar" : "Bokad");
+        System.out.println("--------------------------------------");
     }
 }
