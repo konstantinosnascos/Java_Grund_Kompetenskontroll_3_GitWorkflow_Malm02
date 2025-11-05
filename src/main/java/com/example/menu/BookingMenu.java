@@ -23,7 +23,6 @@ public class BookingMenu {
     private final RegistrationValidator validator = new RegistrationValidator();
     private final BookingService bookingService;
     private static final Logger logger = LoggerFactory.getLogger(BookingMenu.class);
-    LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0);
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("EEEE d MMM yyyy 'kl.' HH:mm");
 
@@ -56,7 +55,7 @@ public class BookingMenu {
     private void printMenu() {
         System.out.println("\n--- Bokningsmeny ---");
         System.out.println("1. Skapa ny bokning");
-        System.out.println("2. Visa alla bokningar");
+        System.out.println("2. Visa bokningar");
         System.out.println("3. Avboka");
         System.out.println("4. Gå tillbaka till huvudmenyn");
     }
@@ -104,7 +103,7 @@ public class BookingMenu {
         System.out.println("Du valde" + serviceType);
 
         showAvailableBookings();
-        String bookTime = input.getString("Bokningstid: ");
+        String bookTime = input.getString("--- Bokningstid ---");
 
         // Hämta vald tid från repository via koden användaren skrev
         LocalDateTime chosenTime = bookingService.getAvailableTimes().get(bookTime);
@@ -126,6 +125,7 @@ public class BookingMenu {
         try {
             // Skapa bokningen och hämta tillbaka den
             Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType);
+            System.out.println("\n Bokning skapad!");
             newBooking.printInfo(FORMATTER);
 
             logger.info("Ny bokning skapad för kund: {} vid tid: {}", name, chosenTime.format(FORMATTER));
@@ -140,14 +140,32 @@ public class BookingMenu {
     }
 
     private void showAllBookings() {
-        System.out.println("\n--- Alla bokningar ---");
-        var bookings = bookingService.getAllBookings();
-        if (bookings.isEmpty()) {
-            System.out.println("Inga bokningar finns.");
-            logger.info("Inga bokningar hittades.");
+
+        System.out.println("\n--- Alternativ ---");
+        System.out.println("1. Hitta Bokning");
+        System.out.println("2. Visa Bokningar efter Datum");
+        System.out.println("3. Visa Bokningar efter Status");
+        System.out.println("4. Gå tillbaka");
+
+        List<Booking> bookingsToDisplay = new LinkedList<>();
+
+        int choice = input.getInt("");
+        switch (choice)
+        {
+            case 1 -> bookingsToDisplay.add(
+                    bookingService.bookingRepository.getBooking(input.getInt("Boknings ID: ")));
+            case 2 -> bookingsToDisplay.addAll(
+                bookingService.bookingRepository.getBookingsSortedByDate());
+            case 3 -> bookingsToDisplay.addAll(
+                    bookingService.bookingRepository.getBookingsSortedByStatus());
+        }
+
+        if (bookingsToDisplay.isEmpty())
+        {
             return;
         }
-        bookings.forEach(System.out::println);
+
+        bookingsToDisplay.forEach(b -> b.printInfo(FORMATTER));
     }
 
     private void showAvailableBookings()
