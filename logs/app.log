@@ -12,3 +12,32 @@
 2025-11-04 15:03:59 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 2 – hittades inte.
 2025-11-04 15:05:01 [main] INFO  com.example.menu.AnalysisMenu - Analys: Bokningar denna vecka visade.
 2025-11-05 07:37:18 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 15:35:13 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 15:35:36 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 12 vid tid: torsdag 6 nov. 2025 kl. 13:00
+2025-11-04 15:35:59 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-04 15:35:59 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-04 15:36:14 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 1 vid tid: torsdag 6 nov. 2025 kl. 13:00
+2025-11-04 15:52:18 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 15:52:31 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 12 vid tid: torsdag 6 nov. 2025 kl. 13:00
+2025-11-04 16:17:03 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 16:17:37 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 1 vid tid: torsdag 6 nov. 2025 kl. 13:00
+2025-11-04 17:04:03 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 17:04:25 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 2 vid tid: torsdag 6 nov. 2025 kl. 13:00
+2025-11-04 17:05:49 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 2 – hittades inte.
+2025-11-04 17:06:01 [main] INFO  com.example.menu.CustomerMenu - Ny kund tillagd: Jonatan (ID: 2)
+2025-11-04 17:06:07 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 2 – hittades inte.
+2025-11-04 17:08:11 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-04 17:08:11 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-04 17:08:21 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: 2 vid tid: torsdag 6 nov. 2025 kl. 13:00
+2025-11-04 17:18:20 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 17:19:01 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: Jonatan Dahl vid tid: onsdag 5 nov. 2025 kl. 11:00
+2025-11-04 17:19:51 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: Jonis Dahl vid tid: torsdag 6 nov. 2025 kl. 12:00
+2025-11-04 19:42:02 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 19:43:06 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-04 19:43:06 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-04 19:43:06 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: Jonatan Dahl vid tid: torsdag 6 nov. 2025 kl. 13:00
+2025-11-04 19:47:12 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-04 19:47:43 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-04 19:47:43 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: Jonatna Dahl vid tid: torsdag 6 nov. 2025 kl. 13:00
+2025-11-04 19:48:06 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-04 19:48:06 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: awd vid tid: torsdag 6 nov. 2025 kl. 13:00
