@@ -75,7 +75,6 @@ public class Booking {
 
     public void printInfo(DateTimeFormatter formatter)
     {
-        System.out.println("\n Bokning skapad!");
         System.out.println("--------------------------------------");
         System.out.printf("Boknings-ID:  %d%n", id);
         System.out.printf("Kund:         %s (%s)%n", customer.getName(), customer.getEmail());
