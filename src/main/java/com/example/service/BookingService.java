@@ -28,8 +28,15 @@ public class BookingService {
         return List.of("other stuff and stuff");
     }
 
-    public boolean cancelBooking(String bookingId) {
-        return true;
+    public boolean cancelBooking(String bookingId)
+    {
+        try {
+            int id = Integer.parseInt(bookingId.trim());
+            return bookingRepository.deleteBooking(id);
+        }catch (NumberFormatException e) {
+            System.out.println("Ogiltigt id");
+            return false;
+        }
     }
 
     public Map<String, LocalDateTime> getAvailableTimes()
