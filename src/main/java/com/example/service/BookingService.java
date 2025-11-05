@@ -21,9 +21,7 @@ import java.util.Set;
 public class BookingService {
     private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
     private PricingService pricingService = new PricingService();
-
     public final BookingRepository bookingRepository = new BookingRepository();
-    public final PricingService pricingService = new PricingService();
 
     public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType)
     {
@@ -53,34 +51,32 @@ public class BookingService {
 
     }
 
-    //tar in en extra variabel(bookingtype) för att sätta pris på service.
-    public void createBooking(int id, String vehicleReg, LocalDateTime dateTime, String bookingType)
-    {
-        double price =0;
-
-        switch (bookingType.toUpperCase())
-        {
-            case "BESIKTNING":
-                price = pricingService.getBesiktningPris();
-                break;
-            case "SERVICE":
-                price = pricingService.calculateServicePrice(99);
-                break;
-            case "REPARATION":
-                price = 0;
-                break;
-            default:
-                throw new IllegalArgumentException("Ogiltig bokning:  välj service, besiktning, reparation");
-        }
-
-        Booking booking = new Booking(
-                -1, vehicleReg, dateTime.toLocalDate(), bookingType, price, false
-        );
-
-        bookingRepository.addBooking(booking);
-        logger.info("Bokning skapad: {} som kommer kosta {}", bookingType, price);
-
-    }
+//    //tar in en extra variabel(bookingtype) för att sätta pris på service.
+//    public void createBooking(int id, String vehicleReg, LocalDateTime dateTime, String bookingType)
+//    {
+//        double price =0;
+//
+//        switch (bookingType.toUpperCase())
+//        {
+//            case "BESIKTNING":
+//                price = pricingService.getBesiktningPris();
+//                break;
+//            case "SERVICE":
+//                price = pricingService.calculateServicePrice(99);
+//                break;
+//            case "REPARATION":
+//                price = 0;
+//                break;
+//            default:
+//                throw new IllegalArgumentException("Ogiltig bokning:  välj service, besiktning, reparation");
+//        }
+//
+//        Booking booking = new Booking(-1, , vehicleReg, dateTime.toLocalDate(), bookingType, price, false);
+//
+//        bookingRepository.addBooking(booking);
+//        logger.info("Bokning skapad: {} som kommer kosta {}", bookingType, price);
+//
+//    }
 
     public boolean completeBooking(int bookingId, Double reparationPrice)
     {
@@ -96,7 +92,7 @@ public class BookingService {
             return false;
         }
 
-        if ("REPARATION".equals(booking.getBookingType()) && reparationPrice != null)
+        if ("REPARATION".equals(booking.getServiceType()) && reparationPrice != null)
         {
             if (reparationPrice<= 0)
             {
