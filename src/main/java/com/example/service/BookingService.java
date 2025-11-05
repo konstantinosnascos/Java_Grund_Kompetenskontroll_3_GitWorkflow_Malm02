@@ -64,7 +64,7 @@ public class BookingService {
                 price = pricingService.getBesiktningPris();
                 break;
             case "SERVICE":
-                price = pricingService.calculateServicePrice();
+                price = pricingService.calculateServicePrice(99);
                 break;
             case "REPARATION":
                 price = 0;
