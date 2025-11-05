@@ -4,6 +4,7 @@ import com.example.helper.InputHelper;
 import com.example.service.AnalysisService;
 import com.example.service.BookingService;
 import com.example.service.CustomerService;
+import com.example.service.EmailService;
 
 import java.util.Scanner;
 
@@ -17,10 +18,11 @@ public class MenuHandler {
     public MenuHandler(Scanner scanner,
                        BookingService bookingService,
                        CustomerService customerService,
-                       AnalysisService analysisService)
+                       AnalysisService analysisService,
+                       EmailService emailService)
     {
         this.input = new InputHelper(scanner);
-        this.bookingMenu = new BookingMenu(input, bookingService);
+        this.bookingMenu = new BookingMenu(input, bookingService, emailService);
         this.customerMenu = new CustomerMenu(input, customerService);
         this.analysisMenu = new AnalysisMenu(input, analysisService);
 

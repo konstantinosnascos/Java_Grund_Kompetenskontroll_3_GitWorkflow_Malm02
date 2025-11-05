@@ -25,7 +25,6 @@ public class BookingService {
 
     public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType)
     {
-        LocalDate date = dateTime.toLocalDate();
         double price = vehicle.getServicePrice();
 
         switch(serviceType)
@@ -42,7 +41,7 @@ public class BookingService {
                 break;
 
         }
-        Booking booking = new Booking(0, customer, vehicle, date, serviceType, price, false);
+        Booking booking = new Booking(0, customer, vehicle, dateTime, serviceType, price, false);
 
 
         bookingRepository.addBooking(booking);
@@ -82,7 +81,12 @@ public class BookingService {
 
     public boolean completeBooking(int bookingId, Double reparationPrice)
     {
-        Booking booking = bookingRepository.getBookings().get(bookingId);
+        Booking booking = bookingRepository.getBookings().stream()
+                .filter(b-> b.getId() ==bookingId)
+                .findFirst()
+                .orElse(null);
+
+
         if (booking== null)
         {
             logger.warn("Boknings ID: {} hittades inte", bookingId);
@@ -94,15 +98,14 @@ public class BookingService {
             return false;
         }
 
-        if ("REPARATION".equals(booking.getServiceType()) && reparationPrice != null)
+        if (booking.getServiceType() == ServiceType.REPARATION && reparationPrice != null)
         {
-            if (reparationPrice<= 0)
-            {
-                logger.warn("Pris måste va högre än 0.");
+            if (reparationPrice <= 0) {
+                logger.warn("Pris måste vara högre än 0.");
                 return false;
             }
             booking.setPrice(reparationPrice);
-            logger.info("Pris är satt till {}", reparationPrice);
+            logger.info("Reparationspris satt till {} kr", reparationPrice);
         }
 
         booking.setCompleted(true);

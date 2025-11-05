@@ -1,19 +1,21 @@
 package com.example.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Booking {
     private static int idCounter = 1;
 
     private int id;
     private Vehicle vehicle;
-    private LocalDate date;
+    private LocalDateTime date;
     private ServiceType serviceType;        // "Service", "Reparation", "Besiktning"
     private double price;              // fast eller flexibel beroende på typ
     private boolean isCompleted;       // status
     private Customer customer;
 
-    public Booking(int id, Customer customer, Vehicle vehicle, LocalDate date, ServiceType serviceType, double price, boolean isCompleted) {
+    public Booking(int id, Customer customer, Vehicle vehicle, LocalDateTime date, ServiceType serviceType, double price, boolean isCompleted) {
         this.id = id;
         this.customer = customer;
         this.vehicle = vehicle;
@@ -34,8 +36,8 @@ public class Booking {
     public Vehicle getVehicle() {return vehicle;}
     public void setVehicle(Vehicle vehicle) {this.vehicle = vehicle;}
 
-    public LocalDate getDate() { return date; }
-    public void setDate(LocalDate date) { this.date = date; }
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) { this.date = date; }
 
     public ServiceType getServiceType() {return serviceType ;}
     public void setServiceType(ServiceType serviceType) {this.serviceType = serviceType; }
@@ -69,5 +71,18 @@ public class Booking {
                 ", price=" + price +
                 ", isCompleted=" + isCompleted +
                 '}';
+    }
+
+    public void printInfo(DateTimeFormatter formatter)
+    {
+        System.out.println("--------------------------------------");
+        System.out.printf("Boknings-ID:  %d%n", id);
+        System.out.printf("Kund:         %s (%s)%n", customer.getName(), customer.getEmail());
+        System.out.printf("Fordon:       %s (%s, %d)%n", vehicle.getModel(), vehicle.getRegNum(), vehicle.getYear());
+        System.out.printf("Datum:        %s%n", date.format(formatter));
+        System.out.printf("Typ:          %s%n", serviceType);
+        System.out.printf("Pris:         %.2f kr%n", price);
+        System.out.printf("Status:       %s%n", isCompleted ? "Klar" : "Bokad");
+        System.out.println("--------------------------------------");
     }
 }

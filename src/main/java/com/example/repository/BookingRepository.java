@@ -86,14 +86,15 @@ public class BookingRepository {
 
     }
 
-    // F5 – Visa bokningsdetaljer via ID
-    public void displayBookingDetails(int id) {
+    // F5 – Visa bokning via ID
+    public Booking getBooking(int id) {
         Booking booking = bookings.get(id);
         if (booking == null) {
             LOG.warn("Ingen bokning med ID {} hittades.", id);
-            return;
+            return null;
         }
 
+        return booking;
         LOG.info("Visar detaljer för bokning med ID {}.", id);
         System.out.println("=== Bokningsdetaljer ===");
         System.out.println("ID: " + booking.getId());
@@ -127,4 +128,10 @@ public class BookingRepository {
                 .sorted(Comparator.comparing(Booking::isCompleted)) // false först = Inte klar
                 .collect(Collectors.toList());
     }
+
+
+
+
+
+
 }

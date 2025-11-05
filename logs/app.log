@@ -12,3 +12,33 @@
 2025-11-04 15:03:59 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 2 – hittades inte.
 2025-11-04 15:05:01 [main] INFO  com.example.menu.AnalysisMenu - Analys: Bokningar denna vecka visade.
 2025-11-05 07:37:18 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-05 17:52:12 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-05 17:52:18 [main] INFO  com.example.menu.BookingMenu - Inga bokningar hittades.
+2025-11-05 17:52:30 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 1 – hittades inte.
+2025-11-05 17:52:40 [main] INFO  com.example.menu.AnalysisMenu - Analys: Bokningar denna vecka visade.
+2025-11-05 07:37:18 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-05 18:17:18 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-05 18:17:28 [main] INFO  com.example.menu.BookingMenu - Inga bokningar hittades.
+2025-11-05 18:17:37 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 1 – hittades inte.
+2025-11-05 18:17:45 [main] INFO  com.example.menu.AnalysisMenu - Analys: Bokningar denna vecka visade.
+2025-11-05 14:24:34 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-05 16:42:57 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-05 16:43:43 [main] INFO  com.example.menu.BookingMenu - Inga bokningar hittades.
+2025-11-05 16:44:42 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-05 16:44:42 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: kostas nascos vid tid: Thursday 6 Nov 2025 kl. 13:00
+2025-11-05 16:46:54 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-05 16:47:27 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-05 16:47:27 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: kost nasc vid tid: Wednesday 5 Nov 2025 kl. 09:00
+2025-11-05 16:47:43 [main] INFO  com.example.service.BookingService - Reparationspris satt till 200.0 kr
+2025-11-05 16:47:43 [main] INFO  com.example.service.BookingService - Bokning med ID 1 är klar.
+2025-11-05 16:47:43 [main] INFO  com.example.service.EmailService - Mail skickat till kost@email.com
+2025-11-05 16:47:43 [main] INFO  com.example.menu.BookingMenu - Bokningen med ID 1 är markerad som klar.
+2025-11-05 17:10:21 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-05 17:10:21 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-05 17:10:21 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-05 17:10:21 [main] INFO  com.example.Application - Testdata: 2 bokningar tillagda.
+2025-11-05 18:50:37 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-05 18:50:37 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-05 18:50:37 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-05 18:50:37 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-05 18:50:37 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
