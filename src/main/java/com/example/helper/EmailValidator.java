@@ -12,14 +12,22 @@ public class EmailValidator {
             "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"
     );
 
-    public boolean isValid(String email)
-    {
-        if (email== null|| email.trim().isEmpty()){
-            logger.warn("Ogiltig email: {}", email);
+    public boolean isValid(String email) {
+
+        if (email == null || email.trim().isEmpty()) {
+            logger.warn("Ogiltig email: tom sträng");
             return false;
         }
 
-        logger.info("Email godkänd: {}", email);
-        return true;
+
+        boolean matches = EMAIL_PATTERN.matcher(email.trim()).matches();
+
+        if (matches) {
+            logger.info("Email godkänd: {}", email);
+        } else {
+            logger.warn("Ogiltig email-format: {}", email);
+        }
+
+        return matches;
     }
 }
