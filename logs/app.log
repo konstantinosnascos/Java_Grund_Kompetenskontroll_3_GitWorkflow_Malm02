@@ -11,3 +11,4 @@
 2025-11-04 15:03:45 [main] INFO  com.example.menu.CustomerMenu - Ny kund tillagd: sdfs (ID: 2)
 2025-11-04 15:03:59 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 2 – hittades inte.
 2025-11-04 15:05:01 [main] INFO  com.example.menu.AnalysisMenu - Analys: Bokningar denna vecka visade.
+2025-11-05 07:37:18 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
