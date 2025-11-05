@@ -49,8 +49,8 @@ public class BookingMenu {
                     case 1 -> showCreateBooking();
                     case 2 -> showAllBookings();
                     case 3 -> cancelBooking();
-                    case 5 -> completeBooking();
-                    case 4 -> running = false;
+                    case 4 -> completeBooking();
+                    case 5 -> running = false;
                     default -> System.out.println("Felaktigt val, försök igen!");
                 }
             } catch (Exception e) {
@@ -65,8 +65,8 @@ public class BookingMenu {
         System.out.println("1. Skapa ny bokning");
         System.out.println("2. Visa alla bokningar");
         System.out.println("3. Avboka");
-        System.out.println("5. Avsluta bokning");
-        System.out.println("4. Gå tillbaka till huvudmenyn");
+        System.out.println("4. Avsluta bokning");
+        System.out.println("5. Gå tillbaka till huvudmenyn");
     }
 
     private void showCreateBooking()
