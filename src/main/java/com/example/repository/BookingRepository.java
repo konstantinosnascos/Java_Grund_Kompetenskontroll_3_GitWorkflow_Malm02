@@ -94,15 +94,16 @@ public class BookingRepository {
             return null;
         }
 
+
+//       LOG.info("Visar detaljer för bokning med ID {}.", id);
+//        System.out.println("=== Bokningsdetaljer ===");
+//        System.out.println("ID: " + booking.getId());
+//        System.out.println("Datum: " + booking.getDate());
+//        //System.out.println("Kund: " + booking.getCustomerName());
+//        System.out.println("Tjänst: " + booking.getServiceType());
+//        System.out.println("Pris: " + booking.getPrice());
+//        System.out.println("status: " + booking.isCompleted());
         return booking;
-        LOG.info("Visar detaljer för bokning med ID {}.", id);
-        System.out.println("=== Bokningsdetaljer ===");
-        System.out.println("ID: " + booking.getId());
-        System.out.println("Datum: " + booking.getDate());
-        //System.out.println("Kund: " + booking.getCustomerName());
-        System.out.println("Tjänst: " + booking.getBookingType());
-        System.out.println("Pris: " + booking.getPrice());
-        System.out.println("Anteckningar: " + booking.getStatus());
     }
 
     //f-13 Sortera efter ID (stigande)
