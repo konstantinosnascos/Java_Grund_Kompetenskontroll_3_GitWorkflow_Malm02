@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.model.Booking;
 import com.example.repository.BookingRepository;
+import java.util.stream.Collectors;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,8 +25,8 @@ public class BookingService {
 
     }
 
-    public List<String> getAllBookings() {
-        return List.of("other stuff and stuff");
+    public List<Booking> getAllBookings() {
+        return bookingRepository.getBookings();
     }
 
     public boolean cancelBooking(String bookingId)
