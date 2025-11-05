@@ -25,7 +25,6 @@ public class BookingService {
 
     public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType)
     {
-        LocalDate date = dateTime.toLocalDate();
         double price = vehicle.getServicePrice();
 
         switch(serviceType)
@@ -42,7 +41,7 @@ public class BookingService {
                 break;
 
         }
-        Booking booking = new Booking(0, customer, vehicle, date, serviceType, price, false);
+        Booking booking = new Booking(0, customer, vehicle, dateTime, serviceType, price, false);
 
 
         bookingRepository.addBooking(booking);
