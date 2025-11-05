@@ -1,16 +1,18 @@
 package com.example.menu;
-
+import com.example.helper.RegistrationValidator;
 import com.example.helper.InputHelper;
+import com.example.model.Booking;
+import com.example.model.Customer;
+import com.example.model.Vehicle;
+import com.example.model.ServiceType;
 import com.example.repository.BookingRepository;
 import com.example.service.BookingService;
 import com.example.exception.BookingConflictException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -18,6 +20,7 @@ import java.util.LinkedList;
 public class BookingMenu {
 
     private final InputHelper input;
+    private final RegistrationValidator validator = new RegistrationValidator();
     private final BookingService bookingService;
     private static final Logger logger = LoggerFactory.getLogger(BookingMenu.class);
     LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0);
@@ -60,15 +63,53 @@ public class BookingMenu {
 
     private void showCreateBooking()
     {
-        System.out.println("\n--- Skapa ny bokning ---");
-        int id = input.getInt("Kund-ID: ");
-        String vehicleReg = input.getString("Fordonets registreringsnummer: ");
-        showAvailableBookings();
 
+
+        System.out.println("\n--- Skapa ny bokning ---");
+        String name = input.getString("Kundens namn & efternamn:  ");
+        String email = input.getString("Kundens e-postadress: ");
+        Customer customer = new Customer();
+        customer.setName(name);
+        customer.setEmail(email);
+
+        System.out.println("\nAnge fordonsuppgifter:");
+        String regNum;
+
+        do{
+            regNum = input.getString("Fordonets registreringsnummer (t.ex. ABC12A): ");
+                if (!validator.isValid(regNum)){
+                System.out.println("Felaktig format. Försök igen! (format: AAA-99(A/9))");
+
+            }
+        } while (!validator.isValid(regNum));
+
+        String model = input.getString("Bilmodel: ");
+        int year = input.getInt("Årsmodell: ");
+
+        Vehicle vehicle = new Vehicle(regNum, model, year);
+        System.out.println("\n Fordon tillagt: " + vehicle);
+
+        System.out.println("\nVälj typ av service:");
+        System.out.println("1. Service");
+        System.out.println("2. Reparation");
+        System.out.println("3. Besiktning");
+        int typeChoice = input.getInt("Ditt val (1-3): ");
+
+        ServiceType serviceType = switch (typeChoice)
+        {
+            case 1 -> ServiceType.SERVICE;
+            case 2 -> ServiceType.REPARATION;
+            case 3 -> ServiceType.BESIKTNING;
+            default -> ServiceType.SERVICE;
+        };
+
+        System.out.println("Du valde" + serviceType);
+
+        showAvailableBookings();
         String bookTime = input.getString("Bokningstid: ");
 
         // Hämta vald tid från repository via koden användaren skrev
-        LocalDateTime chosenTime = bookingService.bookingRepository.getTimeTable().get(bookTime);
+        LocalDateTime chosenTime = bookingService.getAvailableTimes().get(bookTime);
 
         // Om koden inte finns
         if (chosenTime == null ) {
@@ -85,17 +126,36 @@ public class BookingMenu {
         }
 
         try {
-            bookingService.createBooking(id, vehicleReg, chosenTime);
+// Skapa bokningen och hämta tillbaka den
+            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType);
 
-            System.out.println("Bokning skapad för " + chosenTime.format(FORMATTER));
-            logger.info("Ny bokning skapad för kund: {} vid tid: {}", id, chosenTime.format((FORMATTER)));
+            System.out.println("\n✅ Bokning skapad!");
+            System.out.println("--------------------------------------");
+            System.out.printf("Boknings-ID:  %d%n", newBooking.getId());
+            System.out.printf("Kund:         %s (%s)%n",
+                    newBooking.getCustomer().getName(),
+                    newBooking.getCustomer().getEmail());
+            System.out.printf("Fordon:       %s (%s, %d)%n",
+                    newBooking.getVehicle().getModel(),
+                    newBooking.getVehicle().getRegNum(),
+                    newBooking.getVehicle().getYear());
+            System.out.printf("Datum:        %s%n", chosenTime.format(FORMATTER));
+            System.out.printf("Typ:          %s%n", newBooking.getServiceType());
+            System.out.printf("Pris:         %.2f kr%n", newBooking.getPrice());
+            System.out.printf("Status:       %s%n", newBooking.isCompleted() ? "Klar" : "Bokad");
+            System.out.println("--------------------------------------");
+
+
+
+            logger.info("Ny bokning skapad för kund: {} vid tid: {}", name, chosenTime.format(FORMATTER));
+;
 
         } catch (BookingConflictException e) {
             System.out.println("Kan inte boka: " + e.getMessage());
             logger.warn("Dubbelbokning försökte skapas vid tidkod {}", bookTime);
         } catch (Exception e) {
             System.out.println("Ett oväntat fel uppstod: " + e.getMessage());
-            logger.error("Fel vid bokning med kund {} och fordon {}", id, vehicleReg, e);
+            logger.error("Fel vid bokning med kund {} och fordon {}", name, regNum, e);
         }
     }
 
@@ -139,15 +199,4 @@ public class BookingMenu {
         }
     }
 
-//    private LocalDateTime chooseBookingTime()
-//    {
-//        System.out.println("---> Tillgängliga tider <---");
-//
-//        for(int i = 0; i < 5; i++)
-//        {
-//            times.add(startTime.plusHours(i));
-//        }
-//
-//
-//    }
 }
