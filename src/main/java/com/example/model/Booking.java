@@ -11,14 +11,16 @@ public class Booking {
     private String bookingType;        // "Service", "Reparation", "Besiktning"
     private double price;              // fast eller flexibel beroende på typ
     private boolean isCompleted;       // status
+    private String email;              // 🔹 kundens e-postadress
 
-    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price, boolean isCompleted) {
+    public Booking(int id, String vehicleId, LocalDate date, String bookingType, double price, boolean isCompleted, String email) {
         this.id = id;
         this.vehicleReg = vehicleId;
         this.date = date;
         this.bookingType = bookingType;
         this.price = price;
         this.isCompleted = isCompleted;
+        this.email = email;
     }
 
     public int getId() { return id; }
@@ -53,6 +55,9 @@ public class Booking {
     public boolean isCompleted() { return isCompleted; }
     public void setCompleted(boolean completed) { isCompleted = completed; }
 
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
     @Override
     public String toString() {
         return "Booking{" +
@@ -62,6 +67,7 @@ public class Booking {
                 ", bookingType='" + bookingType + '\'' +
                 ", price=" + price +
                 ", isCompleted=" + isCompleted +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
