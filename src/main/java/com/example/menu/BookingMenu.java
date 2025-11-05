@@ -142,7 +142,7 @@ public class BookingMenu {
 
         try {
             // Skapa bokningen och hämta tillbaka den
-            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType);
+            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType, bookTime);
             System.out.println("\n Bokning skapad!");
             newBooking.printInfo(FORMATTER);
 

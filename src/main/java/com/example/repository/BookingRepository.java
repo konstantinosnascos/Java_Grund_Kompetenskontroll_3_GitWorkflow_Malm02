@@ -121,6 +121,12 @@ public class BookingRepository {
                 .collect(Collectors.toList());
     }
 
+    public void removeTime(String selectedTime)
+    {
+        timeTable.remove(selectedTime);
+
+    }
+
 
 
 

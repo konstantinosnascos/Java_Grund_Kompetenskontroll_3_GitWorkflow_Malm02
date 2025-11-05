@@ -23,8 +23,9 @@ public class BookingService {
     private PricingService pricingService = new PricingService();
     public final BookingRepository bookingRepository = new BookingRepository();
 
-    public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType)
+    public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType, String selectedTime)
     {
+
         double price = vehicle.getServicePrice();
 
         switch(serviceType)
@@ -45,6 +46,7 @@ public class BookingService {
 
 
         bookingRepository.addBooking(booking);
+        bookingRepository.removeTime(selectedTime);
         return booking;
 
 
