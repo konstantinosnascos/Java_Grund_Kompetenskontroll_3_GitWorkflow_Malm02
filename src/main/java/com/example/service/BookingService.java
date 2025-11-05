@@ -51,6 +51,8 @@ public class BookingService {
 
     }
 
+
+
 //    //tar in en extra variabel(bookingtype) för att sätta pris på service.
 //    public void createBooking(int id, String vehicleReg, LocalDateTime dateTime, String bookingType)
 //    {
@@ -127,4 +129,33 @@ public class BookingService {
     {
         return bookingRepository.getTimeTable();
     }
+    //Lägg till getBookingById()
+    public Booking getBookingById(int id) {
+        return bookingRepository.getBookings().stream()
+                .filter(b -> b.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean editBooking(int id, Booking updatedBooking) {
+        Booking existing = getBookingById(id);
+        if (existing == null) {
+            logger.warn("Ingen bokning med ID {} hittades för redigering.", id);
+            return false;
+        }
+
+        // Behåll kund och status från originalbokningen
+        //updatedBooking.setCustomer(existing.getCustomer());
+        //updatedBooking.setCompleted(existing.isCompleted());
+
+        boolean success = bookingRepository.editBooking(id, updatedBooking);
+        if (success) {
+            logger.info("Bokning med ID {} uppdaterades.", id);
+        } else {
+            logger.warn("Misslyckades med att uppdatera bokning med ID {}.", id);
+        }
+        return success;
+    }
+
+
 }
