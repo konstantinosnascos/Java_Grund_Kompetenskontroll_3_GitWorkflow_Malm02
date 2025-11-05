@@ -81,24 +81,5 @@ public class InputHelper {
         }
     }
 
-    public LocalDateTime getDateTime(String prompt) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        while (true) {
-            System.out.print(prompt + " (ÅÅÅÅ-MM-DD HH:MM): ");
-            String input = scan.nextLine().trim();
 
-            input = input.trim();
-
-            if (input.contains(".")) {
-                input = input.replace(".", ":");
-            }
-
-            try {
-                return LocalDateTime.parse(input, formatter);
-            } catch (DateTimeParseException e) {
-                System.out.println("Ogiltigt datumformat. Använd: ÅÅÅÅ-MM-DD HH:MM (t.ex. 2025-04-07 14:30)");
-                logger.warn("Ogiltig inmatning av datum/tid: '{}'", input);
-            }
-        }
-    }
 }
