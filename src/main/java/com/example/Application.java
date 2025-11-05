@@ -59,7 +59,19 @@ public class Application {
 
             bookingService.createBooking(customer2, vehicle2, bookingTime2, ServiceType.REPARATION);
 
-            logger.info("Testdata: 2 bokningar tillagda.");
+
+            Customer customer3 = new Customer();
+            customer3.setName("Karl Carlsson");
+            customer3.setEmail("kalle@email.com");
+
+            Vehicle vehicle3 = new Vehicle("KFN123", "Renault Captur", 2016);
+            LocalDateTime bookingTime3 = LocalDateTime.now()
+                    .plusDays(9)
+                    .plusHours(15);
+
+            bookingService.createBooking(customer3, vehicle3, bookingTime3, ServiceType.BESIKTNING);
+
+            logger.info("Testdata: 3 bokningar tillagda.");
         } catch (Exception e)
         {
             System.out.println("Det gick lite fel där tror jag." + e.getMessage());

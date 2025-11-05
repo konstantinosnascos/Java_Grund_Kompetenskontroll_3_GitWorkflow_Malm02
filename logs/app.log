@@ -37,3 +37,8 @@
 2025-11-05 17:10:21 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
 2025-11-05 17:10:21 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
 2025-11-05 17:10:21 [main] INFO  com.example.Application - Testdata: 2 bokningar tillagda.
+2025-11-05 18:50:37 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-05 18:50:37 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-05 18:50:37 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-05 18:50:37 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-05 18:50:37 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
