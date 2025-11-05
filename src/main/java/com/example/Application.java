@@ -6,8 +6,12 @@ import com.example.service.CustomerService;
 import com.example.service.AnalysisService;
 import com.example.service.EmailService;
 
-import java.util.Scanner;
+import com.example.model.Customer;
+import com.example.model.Vehicle;
+import com.example.model.ServiceType;
 
+import java.time.LocalDateTime;
+import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +27,44 @@ public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     public Application() {
-        logger.info("Applikationen har startats. Väntar på användarinteraktion.");
+        logger.info("Applikationen har startats. Lägger till data. Väntar på användarinteraktion.");
+
+        initializeTestData();
+    }
+
+    private void initializeTestData()
+    {
+        try {
+            Customer customer1 = new Customer();
+            customer1.setName("Anna Andersson");
+            customer1.setEmail("anna@email.com");
+
+            Vehicle vehicle1 = new Vehicle("ABC321", "Volvo V70", 2018);
+            LocalDateTime bookingTime1 = LocalDateTime.now()
+                    .plusDays(3)
+                    .plusHours(15);
+
+            bookingService.createBooking(customer1, vehicle1, bookingTime1, ServiceType.SERVICE);
+
+
+            Customer customer2 = new Customer();
+            customer2.setName("Erik Svensson");
+            customer2.setEmail("erik.svensson@email.com");
+
+            Vehicle vehicle2 = new Vehicle("XYZ98B", "Toyota Corolla", 2015);
+
+            LocalDateTime bookingTime2 = LocalDateTime.now()
+                    .plusDays(1)
+                    .withHour(14);
+
+            bookingService.createBooking(customer2, vehicle2, bookingTime2, ServiceType.REPARATION);
+
+            logger.info("Testdata: 2 bokningar tillagda.");
+        } catch (Exception e)
+        {
+            System.out.println("Det gick lite fel där tror jag." + e.getMessage());
+            logger.error("Fel vid initiering av data.", e);
+        }
     }
 
     public void run() {

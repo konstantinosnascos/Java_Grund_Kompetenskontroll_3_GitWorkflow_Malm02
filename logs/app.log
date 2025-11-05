@@ -24,3 +24,7 @@
 2025-11-05 16:47:43 [main] INFO  com.example.service.BookingService - Bokning med ID 1 är klar.
 2025-11-05 16:47:43 [main] INFO  com.example.service.EmailService - Mail skickat till kost@email.com
 2025-11-05 16:47:43 [main] INFO  com.example.menu.BookingMenu - Bokningen med ID 1 är markerad som klar.
+2025-11-05 17:10:21 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-05 17:10:21 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-05 17:10:21 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-05 17:10:21 [main] INFO  com.example.Application - Testdata: 2 bokningar tillagda.
