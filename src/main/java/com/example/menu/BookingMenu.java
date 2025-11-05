@@ -1,4 +1,5 @@
 package com.example.menu;
+import com.example.helper.EmailValidator;
 import com.example.helper.RegistrationValidator;
 import com.example.helper.InputHelper;
 import com.example.model.Booking;
@@ -25,6 +26,7 @@ public class BookingMenu {
 
     private final InputHelper input;
     private final RegistrationValidator validator = new RegistrationValidator();
+    private final EmailValidator emailValidator = new EmailValidator();
     private final BookingService bookingService;
     private final EmailService emailService;
     private static final Logger logger = LoggerFactory.getLogger(BookingMenu.class);
@@ -73,7 +75,15 @@ public class BookingMenu {
     {
         System.out.println("\n--- Skapa ny bokning ---");
         String name = input.getString("Kundens namn & efternamn:  ");
-        String email = input.getString("Kundens e-postadress: ");
+        String email;
+        do {
+            email = input.getString("Kundens e-postadress: ");
+            if (!emailValidator.isValid(email))
+            {
+                System.out.println("Fel email format. Måste innehålla @ och domän " +
+                        "(email@email.se)");
+            }
+        } while (!emailValidator.isValid(email));
         Customer customer = new Customer();
         customer.setName(name);
         customer.setEmail(email);
