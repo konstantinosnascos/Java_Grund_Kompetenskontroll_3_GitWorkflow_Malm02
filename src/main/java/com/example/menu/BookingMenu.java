@@ -51,8 +51,8 @@ public class BookingMenu {
                     case 2 -> showAllBookings();
                     case 3 -> cancelBooking();
                     case 4 -> completeBooking();
-                    case 4 -> editBooking();
-                    case 5 -> running = false;
+                    case 5 -> editBooking();
+                    case 6 -> running = false;
                     default -> System.out.println("Felaktigt val, försök igen!");
                 }
             } catch (Exception e) {
@@ -68,8 +68,8 @@ public class BookingMenu {
         System.out.println("2. Visa bokningar");
         System.out.println("3. Avboka");
         System.out.println("4. Avsluta bokning");
-        System.out.println("4. Redigera bokning");
-        System.out.println("5. Gå tillbaka till huvudmenyn");
+        System.out.println("5. Redigera bokning");
+        System.out.println("6. Gå tillbaka till huvudmenyn");
     }
 
     private void showCreateBooking()
@@ -332,7 +332,7 @@ public class BookingMenu {
         );
 
         // Datum och tid
-        LocalDateTime currentDateTime = existing.getDate().atTime(9, 0);
+        LocalDateTime currentDateTime = existing.getDate();
         LocalDateTime newDateTime = input.getOptionalDateTime(
                 "Nytt datum och tid (yyyy-MM-dd HH:mm) [" + currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "]: "
         );
@@ -367,7 +367,7 @@ public class BookingMenu {
                 bookingId,
                 updatedCustomer,
                 updatedVehicle,
-                finalDateTime.toLocalDate(),
+                finalDateTime,
                 newType,
                 existing.getPrice(),
                 newStatus
