@@ -50,36 +50,14 @@ public class BookingService {
 
     }
 
-//    //tar in en extra variabel(bookingtype) för att sätta pris på service.
-//    public void createBooking(int id, String vehicleReg, LocalDateTime dateTime, String bookingType)
-//    {
-//        double price =0;
-//
-//        switch (bookingType.toUpperCase())
-//        {
-//            case "BESIKTNING":
-//                price = pricingService.getBesiktningPris();
-//                break;
-//            case "SERVICE":
-//                price = pricingService.calculateServicePrice(99);
-//                break;
-//            case "REPARATION":
-//                price = 0;
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Ogiltig bokning:  välj service, besiktning, reparation");
-//        }
-//
-//        Booking booking = new Booking(-1, , vehicleReg, dateTime.toLocalDate(), bookingType, price, false);
-//
-//        bookingRepository.addBooking(booking);
-//        logger.info("Bokning skapad: {} som kommer kosta {}", bookingType, price);
-//
-//    }
-
     public boolean completeBooking(int bookingId, Double reparationPrice)
     {
-        Booking booking = bookingRepository.getBookings().get(bookingId);
+        Booking booking = bookingRepository.getBookings().stream()
+                .filter(b-> b.getId() ==bookingId)
+                .findFirst()
+                .orElse(null);
+
+
         if (booking== null)
         {
             logger.warn("Boknings ID: {} hittades inte", bookingId);
@@ -91,15 +69,14 @@ public class BookingService {
             return false;
         }
 
-        if ("REPARATION".equals(booking.getServiceType()) && reparationPrice != null)
+        if (booking.getServiceType() == ServiceType.REPARATION && reparationPrice != null)
         {
-            if (reparationPrice<= 0)
-            {
-                logger.warn("Pris måste va högre än 0.");
+            if (reparationPrice <= 0) {
+                logger.warn("Pris måste vara högre än 0.");
                 return false;
             }
             booking.setPrice(reparationPrice);
-            logger.info("Pris är satt till {}", reparationPrice);
+            logger.info("Reparationspris satt till {} kr", reparationPrice);
         }
 
         booking.setCompleted(true);
