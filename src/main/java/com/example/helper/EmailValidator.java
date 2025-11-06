@@ -9,7 +9,7 @@ public class EmailValidator {
     private static final Logger logger = LoggerFactory.getLogger(EmailValidator.class);
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
-            "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"
+            "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
     );
 
     public boolean isValid(String email) {

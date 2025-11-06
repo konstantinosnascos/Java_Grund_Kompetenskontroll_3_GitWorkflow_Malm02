@@ -25,7 +25,7 @@ public class Vehicle {
         return year;
     }
 
-    // 🔹 Fast pris för SERVICE beroende på årsmodell (enligt filen)
+    // Fast pris för SERVICE beroende på årsmodell (enligt filen)
     public double getServicePrice() {
         if (year > 2020) {
             return 1500.0;

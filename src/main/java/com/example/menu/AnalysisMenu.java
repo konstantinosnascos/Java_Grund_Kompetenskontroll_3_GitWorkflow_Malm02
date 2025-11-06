@@ -23,10 +23,8 @@ public class AnalysisMenu {
             printMenu();
             int choice = input.getInt("Välj ett alternativ: ");
             switch (choice) {
-                case 1 -> listBookingsByWeek();
-                case 2 -> showTopServices();
-                case 3 -> showCustomerBookingCount();
-                case 4 -> running = false;
+                case 1 -> showBookingCountByType();
+                case 2 -> running = false;
                 default -> System.out.println("Felaktigt val, försök igen!");
             }
         }
@@ -34,10 +32,8 @@ public class AnalysisMenu {
 
     private void printMenu() {
         System.out.println("\n--- Analysmeny ---");
-        System.out.println("1. Visa bokningar per vecka");
-        System.out.println("2. Topp 3 service-typer");
-        System.out.println("3. Antal bokningar per kund.");
-        System.out.println("4. Gå tillbaka till huvudmenyn");
+        System.out.println("1. Antal bokningar per typ");
+        System.out.println("2. Gå tillbaka till huvudmenyn");
     }
 
     private void listBookingsByWeek() {
@@ -51,27 +47,17 @@ public class AnalysisMenu {
         logger.info("Analys: Bokningar denna vecka visade.");
     }
 
-    private void showTopServices() {
-        System.out.println("\n--- Mest bokade service-typer ---");
-        Map<String, Long> topServices = analysisService.getTopServices();
-        if (topServices.isEmpty()) {
+    private void showBookingCountByType() {
+        System.out.println("\n--- Antal bokningar per typ ---");
+        Map<String, Long> counts = analysisService.getBookingCountByType();
+
+        if (counts.isEmpty()) {
             System.out.println("Inga bokningar än.");
         } else {
-            topServices.forEach((type, count) ->
-                    System.out.println(type + ": " + count + " st"));
+            counts.forEach((type, count) ->
+                    System.out.printf("%-12s : %d bokning(ar)%n", type, count)
+            );
         }
-        logger.info("Analys: Top services visade.");
-    }
-
-    private void showCustomerBookingCount() {
-        System.out.println("\n--- Antal bokningar per kund ---");
-        Map<String, Long> counts = analysisService.getBookingCountPerCustomer();
-        if (counts.isEmpty()) {
-            System.out.println("Inga kunder har bokat än.");
-        } else {
-            counts.forEach((id, count) ->
-                    System.out.println("Kund " + id + ": " + count + " bokningar"));
-        }
-        logger.info("Analys: Antal bokningar per kund visade.");
+        logger.info("Analys: Antal bokningar per typ visad.");
     }
 }

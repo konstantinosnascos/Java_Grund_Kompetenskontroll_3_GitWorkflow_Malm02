@@ -126,7 +126,7 @@ public class InputHelper {
         try {
             return LocalDateTime.parse(input, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("❌ Fel format. Använd: yyyy-MM-dd HH:mm (t.ex. 2025-11-06 09:30)");
+            System.out.println("Fel format. Använd: yyyy-MM-dd HH:mm (t.ex. 2025-11-06 09:30)");
             logger.warn("Ogiltigt datumformat: {}", input);
             return null;
         }

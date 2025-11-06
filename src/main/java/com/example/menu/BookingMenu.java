@@ -297,7 +297,7 @@ public class BookingMenu {
         Booking existing = bookingService.getBookingById(bookingId);
 
         if (existing == null) {
-            System.out.println("❌ Ingen bokning med ID " + bookingId + " hittades.");
+            System.out.println("Ingen bokning med ID " + bookingId + " hittades.");
             logger.warn("Försök att redigera bokning med ogiltigt ID: {}", bookingId);
             return;
         }
@@ -386,10 +386,10 @@ public class BookingMenu {
         // Spara ändringar
         boolean success = bookingService.editBooking(bookingId, updated);
         if (success) {
-            System.out.println("✅ Bokning uppdaterad.");
+            System.out.println("Bokning uppdaterad.");
             logger.info("Bokning med ID {} uppdaterades.", bookingId);
         } else {
-            System.out.println("❌ Bokning kunde inte uppdateras.");
+            System.out.println("Bokning kunde inte uppdateras.");
             logger.warn("Misslyckades med att uppdatera bokning med ID {}", bookingId);
         }
     }
