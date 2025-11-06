@@ -24,10 +24,11 @@ public class BookingRepository {
                 .withHour(9).withMinute(0).withSecond(0).withNano(0);
         int code = 1;
 
+        //Populerar listan med tider
         for (int day = 0; day < 3; day++)
         {
             LocalDateTime base = start.plusDays(day);
-            for (int hour = 0; hour < 5; hour++)
+            for (int hour = 1; hour < 5; hour++)
             {
                 LocalDateTime slot = base.plusHours(hour);
                 timeTable.put(String.format("T%03d", code++), slot);
@@ -130,9 +131,9 @@ public class BookingRepository {
                 .collect(Collectors.toList());
     }
 
+    public void removeTime(String selectedTime)
+    {
+        timeTable.remove(selectedTime);
 
-
-
-
-
+    }
 }

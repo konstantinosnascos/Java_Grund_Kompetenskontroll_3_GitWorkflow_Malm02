@@ -47,6 +47,7 @@ public class BookingService {
         Booking booking = new Booking(0, customer, vehicle, dateTime, serviceType, price, false, action);
 
         bookingRepository.addBooking(booking);
+        bookingRepository.removeTime(selectedTime);
         return booking;
     }
 

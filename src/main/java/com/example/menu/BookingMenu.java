@@ -124,7 +124,7 @@ public class BookingMenu {
         }
 
         showAvailableBookings();
-        String bookTime = input.getString("--- Bokningstid ---");
+        String bookTime = input.getString("Bokningstid: ").trim().toUpperCase();
 
         LocalDateTime chosenTime = bookingService.getAvailableTimes().get(bookTime);
 
@@ -148,6 +148,8 @@ public class BookingMenu {
 
             logger.info("Ny bokning skapad för kund: {} vid tid: {}", name, chosenTime.format(FORMATTER));
 
+            emailService.sendBookingConfirmation(newBooking);
+
         } catch (BookingConflictException e) {
             System.out.println("Kan inte boka: " + e.getMessage());
             logger.warn("Dubbelbokning försökte skapas vid tidkod {}", bookTime);
@@ -163,7 +165,7 @@ public class BookingMenu {
         System.out.println("1. Hitta Bokning");
         System.out.println("2. Visa Bokningar efter Datum");
         System.out.println("3. Visa Bokningar efter Status");
-        System.out.println("4. Gå tillbaka");
+        System.out.println("0. Gå tillbaka");
 
         List<Booking> bookingsToDisplay = new LinkedList<>();
 
@@ -176,6 +178,7 @@ public class BookingMenu {
                     bookingService.bookingRepository.getBookingsSortedByDate());
             case 3 -> bookingsToDisplay.addAll(
                     bookingService.bookingRepository.getBookingsSortedByStatus());
+            case 0 -> {return;}
         }
 
         if (bookingsToDisplay.isEmpty())
@@ -194,7 +197,7 @@ public class BookingMenu {
 
         times.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
-                .forEach(entry-> System.out.printf("%s → %s%n ",
+                .forEach(entry-> System.out.printf("%s → %s%n",
                         entry.getKey(),
                         entry.getValue().format(FORMATTER)));
     }
@@ -292,7 +295,7 @@ public class BookingMenu {
         Booking existing = bookingService.getBookingById(bookingId);
 
         if (existing == null) {
-            System.out.println("❌ Ingen bokning med ID " + bookingId + " hittades.");
+            System.out.println("Ingen bokning med ID " + bookingId + " hittades.");
             logger.warn("Försök att redigera bokning med ogiltigt ID: {}", bookingId);
             return;
         }
@@ -383,10 +386,10 @@ public class BookingMenu {
 
         boolean success = bookingService.editBooking(bookingId, updated);
         if (success) {
-            System.out.println("✅ Bokning uppdaterad.");
+            System.out.println("Bokning uppdaterad.");
             logger.info("Bokning med ID {} uppdaterades.", bookingId);
         } else {
-            System.out.println("❌ Bokning kunde inte uppdateras.");
+            System.out.println("Bokning kunde inte uppdateras.");
             logger.warn("Misslyckades med att uppdatera bokning med ID {}", bookingId);
         }
     }
