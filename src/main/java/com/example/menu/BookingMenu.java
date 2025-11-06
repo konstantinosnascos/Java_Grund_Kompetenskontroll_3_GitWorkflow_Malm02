@@ -148,6 +148,8 @@ public class BookingMenu {
 
             logger.info("Ny bokning skapad för kund: {} vid tid: {}", name, chosenTime.format(FORMATTER));
 
+            emailService.sendBookingConfirmation(newBooking);
+
         } catch (BookingConflictException e) {
             System.out.println("Kan inte boka: " + e.getMessage());
             logger.warn("Dubbelbokning försökte skapas vid tidkod {}", bookTime);
