@@ -84,3 +84,58 @@
 2025-11-05 22:12:16 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 5 uppdaterades.
 2025-11-05 22:14:19 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter datum.
 2025-11-05 22:14:44 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter status (Inte klar först).
+2025-11-06 07:55:48 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-06 07:55:48 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-06 07:55:48 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-06 07:55:48 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-06 07:55:48 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
+2025-11-06 07:56:04 [main] INFO  com.example.helper.EmailValidator - Email godkänd: kost@mail.se
+2025-11-06 07:56:04 [main] INFO  com.example.helper.EmailValidator - Email godkänd: kost@mail.se
+2025-11-06 07:56:39 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2016: 1800.0 kr
+2025-11-06 07:56:39 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: ko nas vid tid: Thursday 6 Nov 2025 kl. 09:00
+2025-11-06 07:56:39 [main] INFO  com.example.service.EmailService - Bokningsmejl skickat till kost@mail.se
+2025-11-06 07:57:05 [main] INFO  com.example.service.BookingService - Bokning med ID 4 är klar.
+2025-11-06 07:57:05 [main] INFO  com.example.service.EmailService - Mail skickat till kost@mail.se
+2025-11-06 07:57:05 [main] INFO  com.example.menu.BookingMenu - Bokningen med ID 4 är markerad som klar.
+2025-11-05 21:55:52 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-05 21:55:52 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-05 21:55:52 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-05 21:55:52 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-05 21:55:52 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
+2025-11-05 21:56:08 [main] INFO  com.example.helper.EmailValidator - Email godkänd: rad
+2025-11-05 21:56:08 [main] INFO  com.example.helper.EmailValidator - Email godkänd: rad
+2025-11-05 21:57:13 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2012: 2000.0 kr
+2025-11-05 21:57:13 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: rasha vid tid: onsdag 5 nov. 2025 kl. 09:00
+2025-11-05 21:57:26 [main] INFO  c.e.repository.BookingRepository - Visar detaljer för bokning med ID 1.
+2025-11-05 21:58:17 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter datum.
+2025-11-05 21:58:51 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter status (Inte klar först).
+2025-11-05 22:00:36 [main] INFO  c.e.repository.BookingRepository - Bokning med ID 1 uppdaterad.
+2025-11-05 22:00:36 [main] INFO  com.example.service.BookingService - Bokning med ID 1 uppdaterades.
+2025-11-05 22:00:36 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 1 uppdaterades.
+2025-11-05 22:01:51 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-05 22:01:51 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-05 22:01:51 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-05 22:01:51 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-05 22:01:51 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
+2025-11-05 22:02:02 [main] INFO  com.example.helper.EmailValidator - Email godkänd: knifdi
+2025-11-05 22:02:02 [main] INFO  com.example.helper.EmailValidator - Email godkänd: knifdi
+2025-11-05 22:06:36 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-05 22:06:36 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-05 22:07:26 [main] INFO  com.example.helper.EmailValidator - Email godkänd: rdd
+2025-11-05 22:07:26 [main] INFO  com.example.helper.EmailValidator - Email godkänd: rdd
+2025-11-05 22:07:51 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2012: 2000.0 kr
+2025-11-05 22:07:51 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: rasha vid tid: onsdag 5 nov. 2025 kl. 09:00
+2025-11-05 22:08:30 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter datum.
+2025-11-05 22:09:07 [main] INFO  c.e.repository.BookingRepository - Bokning med ID 4 borttagen.
+2025-11-05 22:09:07 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 4 avbokad.
+2025-11-05 22:09:18 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter status (Inte klar först).
+2025-11-05 22:10:23 [main] INFO  com.example.helper.EmailValidator - Email godkänd: rasfg
+2025-11-05 22:10:23 [main] INFO  com.example.helper.EmailValidator - Email godkänd: rasfg
+2025-11-05 22:11:00 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2012: 2000.0 kr
+2025-11-05 22:11:00 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: rasha vid tid: onsdag 5 nov. 2025 kl. 09:00
+2025-11-05 22:11:39 [main] INFO  com.example.helper.EmailValidator - Email godkänd: rasf
+2025-11-05 22:12:16 [main] INFO  c.e.repository.BookingRepository - Bokning med ID 5 uppdaterad.
+2025-11-05 22:12:16 [main] INFO  com.example.service.BookingService - Bokning med ID 5 uppdaterades.
+2025-11-05 22:12:16 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 5 uppdaterades.
+2025-11-05 22:14:19 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter datum.
+2025-11-05 22:14:44 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter status (Inte klar först).
