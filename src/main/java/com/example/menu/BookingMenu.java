@@ -30,7 +30,6 @@ public class BookingMenu {
     private final BookingService bookingService;
     private final EmailService emailService;
     private static final Logger logger = LoggerFactory.getLogger(BookingMenu.class);
-    LocalDateTime startTime = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0);
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("EEEE d MMM yyyy 'kl.' HH:mm");
 
@@ -52,7 +51,8 @@ public class BookingMenu {
                     case 2 -> showAllBookings();
                     case 3 -> cancelBooking();
                     case 4 -> completeBooking();
-                    case 5 -> running = false;
+                    case 5 -> editBooking();
+                    case 6 -> running = false;
                     default -> System.out.println("Felaktigt val, försök igen!");
                 }
             } catch (Exception e) {
@@ -65,10 +65,11 @@ public class BookingMenu {
     private void printMenu() {
         System.out.println("\n--- Bokningsmeny ---");
         System.out.println("1. Skapa ny bokning");
-        System.out.println("2. Visa alla bokningar");
+        System.out.println("2. Visa bokningar");
         System.out.println("3. Avboka");
         System.out.println("4. Avsluta bokning");
-        System.out.println("5. Gå tillbaka till huvudmenyn");
+        System.out.println("5. Redigera bokning");
+        System.out.println("6. Gå tillbaka till huvudmenyn");
     }
 
     private void showCreateBooking()
@@ -122,7 +123,7 @@ public class BookingMenu {
         System.out.println("Du valde" + serviceType);
 
         showAvailableBookings();
-        String bookTime = input.getString("Bokningstid: ");
+        String bookTime = input.getString("--- Bokningstid ---");
 
         // Hämta vald tid från repository via koden användaren skrev
         LocalDateTime chosenTime = bookingService.getAvailableTimes().get(bookTime);
@@ -144,6 +145,7 @@ public class BookingMenu {
         try {
             // Skapa bokningen och hämta tillbaka den
             Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType);
+            System.out.println("\n Bokning skapad!");
             newBooking.printInfo(FORMATTER);
 
             logger.info("Ny bokning skapad för kund: {} vid tid: {}", name, chosenTime.format(FORMATTER));
@@ -158,14 +160,32 @@ public class BookingMenu {
     }
 
     private void showAllBookings() {
-        System.out.println("\n--- Alla bokningar ---");
-        var bookings = bookingService.getAllBookings();
-        if (bookings.isEmpty()) {
-            System.out.println("Inga bokningar finns.");
-            logger.info("Inga bokningar hittades.");
+
+        System.out.println("\n--- Alternativ ---");
+        System.out.println("1. Hitta Bokning");
+        System.out.println("2. Visa Bokningar efter Datum");
+        System.out.println("3. Visa Bokningar efter Status");
+        System.out.println("4. Gå tillbaka");
+
+        List<Booking> bookingsToDisplay = new LinkedList<>();
+
+        int choice = input.getInt("");
+        switch (choice)
+        {
+            case 1 -> bookingsToDisplay.add(
+                    bookingService.bookingRepository.getBooking(input.getInt("Boknings ID: ")));
+            case 2 -> bookingsToDisplay.addAll(
+                bookingService.bookingRepository.getBookingsSortedByDate());
+            case 3 -> bookingsToDisplay.addAll(
+                    bookingService.bookingRepository.getBookingsSortedByStatus());
+        }
+
+        if (bookingsToDisplay.isEmpty())
+        {
             return;
         }
-        bookings.forEach(System.out::println);
+
+        bookingsToDisplay.forEach(b -> b.printInfo(FORMATTER));
     }
 
     private void showAvailableBookings()
@@ -269,4 +289,110 @@ public class BookingMenu {
             logger.warn("Kunde inte markera bokning som klar.");
         }
     }
+    private void editBooking() {
+        System.out.println("\n--- Redigera bokning ---");
+        int bookingId = input.getInt("Ange boknings-ID att redigera: ");
+        Booking existing = bookingService.getBookingById(bookingId);
+
+        if (existing == null) {
+            System.out.println("❌ Ingen bokning med ID " + bookingId + " hittades.");
+            logger.warn("Försök att redigera bokning med ogiltigt ID: {}", bookingId);
+            return;
+        }
+
+        System.out.println("Nuvarande bokning:");
+        System.out.println(existing);
+
+        // Kunduppgifter – namn och e-post
+        String newName = input.getOptionalString("Nytt namn (" + existing.getCustomer().getName() + "): ");
+        String newEmail = input.getOptionalString("Ny e-post (" + existing.getCustomer().getEmail() + "): ");
+        if (!newEmail.isBlank() && !emailValidator.isValid(newEmail)) {
+            System.out.println("Ogiltig e-postadress. Ändring ignoreras.");
+            newEmail = existing.getCustomer().getEmail();
+        }
+
+        Customer updatedCustomer = new Customer();
+        updatedCustomer.setName(newName.isBlank() ? existing.getCustomer().getName() : newName);
+        updatedCustomer.setEmail(newEmail.isBlank() ? existing.getCustomer().getEmail() : newEmail);
+
+        // Fordonsuppgifter
+        String newModel = input.getOptionalString("Ny bilmodell (" + existing.getVehicle().getModel() + "): ");
+        String newReg = input.getOptionalString("Nytt registreringsnummer (" + existing.getVehicle().getRegNum() + "): ");
+        if (!newReg.isBlank() && !validator.isValid(newReg)) {
+            System.out.println("Ogiltigt registreringsnummer. Ändring ignoreras.");
+            newReg = existing.getVehicle().getRegNum();
+        }
+
+        int newYear = input.getOptionalInt("Ny årsmodell (" + existing.getVehicle().getYear() + "): ");
+
+        Vehicle updatedVehicle = new Vehicle(
+                newReg.isBlank() ? existing.getVehicle().getRegNum() : newReg,
+                newModel.isBlank() ? existing.getVehicle().getModel() : newModel,
+                newYear == -1 ? existing.getVehicle().getYear() : newYear
+        );
+
+        // Datum och tid
+        LocalDateTime currentDateTime = existing.getDate();
+        LocalDateTime newDateTime = input.getOptionalDateTime(
+                "Nytt datum och tid (yyyy-MM-dd HH:mm) [" + currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "]: "
+        );
+        LocalDateTime finalDateTime = (newDateTime == null) ? currentDateTime : newDateTime;
+
+        // Tjänstetyp
+        System.out.println("Välj ny tjänstetyp:");
+        System.out.println("1. Service");
+        System.out.println("2. Reparation");
+        System.out.println("3. Besiktning");
+        int typeChoice = input.getOptionalInt("Ditt val (1-3): ");
+        ServiceType newType = switch (typeChoice) {
+            case 1 -> ServiceType.SERVICE;
+            case 2 -> ServiceType.REPARATION;
+            case 3 -> ServiceType.BESIKTNING;
+            default -> existing.getServiceType();
+        };
+
+        // Status
+        System.out.println("Ändra status:");
+        System.out.println("1. Inte klar");
+        System.out.println("2. Klar");
+        int statusChoice = input.getOptionalInt("Ditt val (1-2): ");
+        boolean newStatus = switch (statusChoice) {
+            case 1 -> false;
+            case 2 -> true;
+            default -> existing.isCompleted(); // Behåll nuvarande status
+        };
+
+        // Skapa uppdaterad bokning
+        Booking updated = new Booking(
+                bookingId,
+                updatedCustomer,
+                updatedVehicle,
+                finalDateTime,
+                newType,
+                existing.getPrice(),
+                newStatus
+        );
+
+        // Bekräftelse
+        String confirm = input.getOptionalString("Vill du spara ändringarna? [(y)es/(n)o]: ").toLowerCase();
+        if (confirm.equals("n") || confirm.equals("no")) {
+            System.out.println("Ändringar avbröts.");
+            logger.info("Användaren avbröt redigering av bokning {}", bookingId);
+            return;
+        }
+
+        // Spara ändringar
+        boolean success = bookingService.editBooking(bookingId, updated);
+        if (success) {
+            System.out.println("✅ Bokning uppdaterad.");
+            logger.info("Bokning med ID {} uppdaterades.", bookingId);
+        } else {
+            System.out.println("❌ Bokning kunde inte uppdateras.");
+            logger.warn("Misslyckades med att uppdatera bokning med ID {}", bookingId);
+        }
+    }
+
+
+
+
 }

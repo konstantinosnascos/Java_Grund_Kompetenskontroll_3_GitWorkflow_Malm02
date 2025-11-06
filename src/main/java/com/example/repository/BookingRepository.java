@@ -77,31 +77,33 @@ public class BookingRepository {
     //f4-visa alla bokningar
     public void displayAllBookings(){
         if(bookings.isEmpty()){
-            System.out.println("Inga bokningar finns.");
+            LOG.info("Inga bokningar att visa.");
             return;
         }
         for(Booking booking : bookings.values()){
-            System.out.println("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", Status: " + booking.isCompleted());
+            LOG.info("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", price: " + booking.getPrice());
         }
 
     }
 
-    // F5 – Visa bokningsdetaljer via ID
-    public void displayBookingDetails(int id) {
+    // F5 – Visa bokning via ID
+    public Booking getBooking(int id) {
         Booking booking = bookings.get(id);
         if (booking == null) {
             LOG.warn("Ingen bokning med ID {} hittades.", id);
-            return;
+            return null;
         }
 
-        LOG.info("Visar detaljer för bokning med ID {}.", id);
-        System.out.println("=== Bokningsdetaljer ===");
-        System.out.println("ID: " + booking.getId());
-        System.out.println("Datum: " + booking.getDate());
-        //System.out.println("Kund: " + booking.getCustomerName());
-        System.out.println("Tjänst: " + booking.getServiceType());
-        System.out.println("Pris: " + booking.getPrice());
-        System.out.println("Anteckningar: " + booking.isCompleted());
+
+//       LOG.info("Visar detaljer för bokning med ID {}.", id);
+//        System.out.println("=== Bokningsdetaljer ===");
+//        System.out.println("ID: " + booking.getId());
+//        System.out.println("Datum: " + booking.getDate());
+//        //System.out.println("Kund: " + booking.getCustomerName());
+//        System.out.println("Tjänst: " + booking.getServiceType());
+//        System.out.println("Pris: " + booking.getPrice());
+//        System.out.println("status: " + booking.isCompleted());
+        return booking;
     }
 
     //f-13 Sortera efter ID (stigande)
@@ -121,12 +123,12 @@ public class BookingRepository {
     }
 
     //f-13 Sortera efter status (Inte klar först)
-//    public List<Booking> getBookingsSortedByStatus() {
-//        LOG.info("Sorterar bokningar efter status (Inte klar först).");
-//        return bookings.values().stream()
-//                .sorted(Comparator.comparing(Booking::isCompleted)) // false först = Inte klar
-//                .collect(Collectors.toList());
-//    }
+    public List<Booking> getBookingsSortedByStatus() {
+        LOG.info("Sorterar bokningar efter status (Inte klar först).");
+        return bookings.values().stream()
+                .sorted(Comparator.comparing(Booking::isCompleted)) // false först = Inte klar
+                .collect(Collectors.toList());
+    }
 
 
 
