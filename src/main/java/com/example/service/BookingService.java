@@ -23,7 +23,8 @@ public class BookingService {
     private PricingService pricingService = new PricingService();
     public final BookingRepository bookingRepository = new BookingRepository();
 
-    public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType)
+    // 🔹 Ändring: lagt till "String action" så reparation kan ha en åtgärd
+    public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType, String action)
     {
         double price = vehicle.getServicePrice();
 
@@ -41,13 +42,12 @@ public class BookingService {
                 break;
 
         }
-        Booking booking = new Booking(0, customer, vehicle, dateTime, serviceType, price, false);
 
+        // 🔹 Ändring: skickar med "action" till konstruktorn
+        Booking booking = new Booking(0, customer, vehicle, dateTime, serviceType, price, false, action);
 
         bookingRepository.addBooking(booking);
         return booking;
-
-
     }
 
 
