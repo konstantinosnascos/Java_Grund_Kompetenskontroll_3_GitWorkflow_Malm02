@@ -12,6 +12,12 @@
 2025-11-04 15:03:59 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 2 – hittades inte.
 2025-11-04 15:05:01 [main] INFO  com.example.menu.AnalysisMenu - Analys: Bokningar denna vecka visade.
 2025-11-05 07:37:18 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-05 16:06:28 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
+2025-11-05 16:06:34 [main] WARN  com.example.helper.InputHelper - Ogiltig inmatning – användaren skrev inte ett heltal.
+2025-11-05 16:06:53 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-05 16:06:53 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-05 16:07:24 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-05 16:07:24 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: Jonatan dahl vid tid: fredag 7 nov. 2025 kl. 13:00
 2025-11-05 17:52:12 [main] INFO  com.example.Application - Applikationen har startats. Väntar på användarinteraktion.
 2025-11-05 17:52:18 [main] INFO  com.example.menu.BookingMenu - Inga bokningar hittades.
 2025-11-05 17:52:30 [main] WARN  com.example.menu.CustomerMenu - Försökte visa kund med ID: 1 – hittades inte.
@@ -42,6 +48,16 @@
 2025-11-05 18:50:37 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
 2025-11-05 18:50:37 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
 2025-11-05 18:50:37 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
+2025-11-05 19:44:30 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-05 19:44:30 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-05 19:44:30 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-05 19:44:30 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-05 19:44:30 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
+2025-11-05 19:44:47 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter datum.
+2025-11-05 19:45:16 [main] INFO  com.example.helper.EmailValidator - Email godkänd: jdahl.junior@gmail.com
+2025-11-05 19:45:16 [main] INFO  com.example.helper.EmailValidator - Email godkänd: jdahl.junior@gmail.com
+2025-11-05 19:45:48 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-05 19:45:48 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: Jonatan Dahl vid tid: fredag 7 nov. 2025 kl. 13:00
 2025-11-05 21:55:52 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
 2025-11-05 21:55:52 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
 2025-11-05 21:55:52 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
