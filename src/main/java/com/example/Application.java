@@ -44,8 +44,8 @@ public class Application {
                     .plusDays(3)
                     .plusHours(15);
 
-            // 👇 nytt: skickar med null för åtgärd (inte reparation)
-            bookingService.createBooking(customer1, vehicle1, bookingTime1, ServiceType.SERVICE, null);
+            //  nytt: skickar med null för åtgärd (inte reparation)
+            bookingService.createBooking(customer1, vehicle1, bookingTime1, ServiceType.SERVICE, "T001", null);
 
 
             Customer customer2 = new Customer();
@@ -58,8 +58,8 @@ public class Application {
                     .plusDays(1)
                     .withHour(14);
 
-            // 👇 nytt: skickar med en beskrivning eftersom det är reparation
-            bookingService.createBooking(customer2, vehicle2, bookingTime2, ServiceType.REPARATION, "Bromsbyte fram");
+            //  nytt: skickar med en beskrivning eftersom det är reparation
+            bookingService.createBooking(customer2, vehicle2, bookingTime2, ServiceType.REPARATION, "T005","Bromsbyte fram");
 
 
             Customer customer3 = new Customer();
@@ -71,8 +71,8 @@ public class Application {
                     .plusDays(9)
                     .plusHours(15);
 
-            // 👇 nytt: null eftersom det inte är reparation
-            bookingService.createBooking(customer3, vehicle3, bookingTime3, ServiceType.BESIKTNING, null);
+            //  nytt: null eftersom det inte är reparation
+            bookingService.createBooking(customer3, vehicle3, bookingTime3, ServiceType.BESIKTNING, "T008", null);
 
             logger.info("Testdata: 3 bokningar tillagda.");
         } catch (Exception e)

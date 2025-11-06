@@ -24,7 +24,7 @@ public class BookingService {
     public final BookingRepository bookingRepository = new BookingRepository();
 
     // 🔹 Ändring: lagt till "String action" så reparation kan ha en åtgärd
-    public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType, String action)
+    public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType, String selectedTime, String action)
     {
         double price = vehicle.getServicePrice();
 
@@ -43,42 +43,13 @@ public class BookingService {
 
         }
 
-        // 🔹 Ändring: skickar med "action" till konstruktorn
+        //  Ändring: skickar med "action" till konstruktorn
         Booking booking = new Booking(0, customer, vehicle, dateTime, serviceType, price, false, action);
 
         bookingRepository.addBooking(booking);
         bookingRepository.removeTime(selectedTime);
         return booking;
     }
-
-
-
-//    //tar in en extra variabel(bookingtype) för att sätta pris på service.
-//    public void createBooking(int id, String vehicleReg, LocalDateTime dateTime, String bookingType)
-//    {
-//        double price =0;
-//
-//        switch (bookingType.toUpperCase())
-//        {
-//            case "BESIKTNING":
-//                price = pricingService.getBesiktningPris();
-//                break;
-//            case "SERVICE":
-//                price = pricingService.calculateServicePrice(99);
-//                break;
-//            case "REPARATION":
-//                price = 0;
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Ogiltig bokning:  välj service, besiktning, reparation");
-//        }
-//
-//        Booking booking = new Booking(-1, , vehicleReg, dateTime.toLocalDate(), bookingType, price, false);
-//
-//        bookingRepository.addBooking(booking);
-//        logger.info("Bokning skapad: {} som kommer kosta {}", bookingType, price);
-//
-//    }
 
     public boolean completeBooking(int bookingId, Double reparationPrice)
     {
