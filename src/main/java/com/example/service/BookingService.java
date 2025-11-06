@@ -25,7 +25,6 @@ public class BookingService {
 
     public Booking createBooking(Customer customer, Vehicle vehicle, LocalDateTime dateTime, ServiceType serviceType, String selectedTime)
     {
-
         double price = vehicle.getServicePrice();
 
         switch(serviceType)
@@ -44,12 +43,9 @@ public class BookingService {
         }
         Booking booking = new Booking(0, customer, vehicle, dateTime, serviceType, price, false);
 
-
         bookingRepository.addBooking(booking);
         bookingRepository.removeTime(selectedTime);
         return booking;
-
-
     }
 
     public boolean completeBooking(int bookingId, Double reparationPrice)

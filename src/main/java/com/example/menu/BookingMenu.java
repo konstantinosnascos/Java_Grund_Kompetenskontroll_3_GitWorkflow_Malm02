@@ -121,7 +121,7 @@ public class BookingMenu {
         System.out.println("Du valde" + serviceType);
 
         showAvailableBookings();
-        String bookTime = input.getString("--- Bokningstid ---");
+        String bookTime = input.getString("Bokningstid: ").trim().toUpperCase();
 
         // Hämta vald tid från repository via koden användaren skrev
         LocalDateTime chosenTime = bookingService.getAvailableTimes().get(bookTime);
@@ -143,7 +143,7 @@ public class BookingMenu {
         try {
             // Skapa bokningen och hämta tillbaka den
             Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType, bookTime);
-            System.out.println("\n Bokning skapad!");
+            System.out.println("\nBokning skapad!");
             newBooking.printInfo(FORMATTER);
 
             logger.info("Ny bokning skapad för kund: {} vid tid: {}", name, chosenTime.format(FORMATTER));
@@ -163,7 +163,7 @@ public class BookingMenu {
         System.out.println("1. Hitta Bokning");
         System.out.println("2. Visa Bokningar efter Datum");
         System.out.println("3. Visa Bokningar efter Status");
-        System.out.println("4. Gå tillbaka");
+        System.out.println("0. Gå tillbaka");
 
         List<Booking> bookingsToDisplay = new LinkedList<>();
 
@@ -176,6 +176,7 @@ public class BookingMenu {
                 bookingService.bookingRepository.getBookingsSortedByDate());
             case 3 -> bookingsToDisplay.addAll(
                     bookingService.bookingRepository.getBookingsSortedByStatus());
+            case 0 -> {return;}
         }
 
         if (bookingsToDisplay.isEmpty())
@@ -194,11 +195,9 @@ public class BookingMenu {
         
         times.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
-                .forEach(entry-> System.out.printf("%s → %s%n ",
+                .forEach(entry-> System.out.printf("%s → %s%n",
                         entry.getKey(),
                         entry.getValue().format(FORMATTER)));
-
-
     }
 
     private void cancelBooking() {
