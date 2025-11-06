@@ -100,6 +100,20 @@
 2025-11-05 22:12:16 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 5 uppdaterades.
 2025-11-05 22:14:19 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter datum.
 2025-11-05 22:14:44 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter status (Inte klar först).
+2025-11-06 11:47:44 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-06 11:47:44 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-06 11:47:44 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-06 11:47:44 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-06 11:47:44 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
+2025-11-06 11:47:57 [main] INFO  com.example.helper.EmailValidator - Email godkänd: h
+2025-11-06 11:47:57 [main] INFO  com.example.helper.EmailValidator - Email godkänd: h
+2025-11-06 11:48:02 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-06 11:48:02 [main] WARN  c.e.helper.RegistrationValidator - Felaktig regskylt. AAA-99(A/9) förväntas.
+2025-11-06 11:48:10 [main] WARN  com.example.helper.InputHelper - Ogiltig inmatning – användaren skrev inte ett heltal.
+2025-11-06 11:48:31 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-06 11:48:31 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: h vid tid: lördag 8 nov. 2025 kl. 13:00
+2025-11-06 11:48:41 [main] WARN  com.example.helper.InputHelper - Ogiltig inmatning – användaren skrev inte ett heltal.
+2025-11-06 11:48:42 [main] WARN  com.example.helper.InputHelper - Ogiltig inmatning – användaren skrev inte ett heltal.
 2025-11-06 07:55:48 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
 2025-11-06 07:55:48 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
 2025-11-06 07:55:48 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
@@ -161,3 +175,41 @@
 2025-11-06 10:27:52 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
 2025-11-06 10:27:52 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
 2025-11-06 10:27:59 [main] INFO  com.example.menu.AnalysisMenu - Analys: Antal bokningar per typ visad.
+2025-11-06 12:56:35 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-06 12:56:35 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-06 12:56:35 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-06 12:56:35 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-06 12:56:35 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
+2025-11-06 12:56:56 [main] INFO  com.example.helper.EmailValidator - Email godkänd: mak@hotmail.com
+2025-11-06 12:56:56 [main] INFO  com.example.helper.EmailValidator - Email godkänd: mak@hotmail.com
+2025-11-06 12:57:24 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-06 12:57:24 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: markus nik vid tid: lördag 8 nov. 2025 kl. 13:00
+2025-11-06 12:57:24 [main] INFO  com.example.service.EmailService - Bokningsmejl skickat till mak@hotmail.com
+2025-11-06 12:58:16 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-06 12:58:16 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-06 12:58:16 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-06 12:58:16 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-06 12:58:16 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
+2025-11-06 12:58:25 [main] WARN  com.example.helper.EmailValidator - Ogiltig email-format: f
+2025-11-06 12:58:25 [main] WARN  com.example.helper.EmailValidator - Ogiltig email-format: f
+2025-11-06 12:58:32 [main] INFO  com.example.helper.EmailValidator - Email godkänd: f@mail.com
+2025-11-06 12:58:32 [main] INFO  com.example.helper.EmailValidator - Email godkänd: f@mail.com
+2025-11-06 12:58:48 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-06 12:58:48 [main] INFO  com.example.menu.BookingMenu - Ny bokning skapad för kund: f vid tid: lördag 8 nov. 2025 kl. 13:00
+2025-11-06 12:58:48 [main] INFO  com.example.service.EmailService - Bokningsmejl skickat till f@mail.com
+2025-11-06 12:58:58 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter datum.
+2025-11-06 13:02:30 [main] INFO  com.example.Application - Applikationen har startats. Lägger till data. Väntar på användarinteraktion.
+2025-11-06 13:02:30 [main] INFO  com.example.service.PricingService - Service-pris beräknat för årsmodell 2018: 1800.0 kr
+2025-11-06 13:02:30 [main] INFO  com.example.service.PricingService - Reparationspris satt till: 0.0 kr
+2025-11-06 13:02:30 [main] INFO  com.example.service.PricingService - Besiktningspris hämtat: 550.0 kr
+2025-11-06 13:02:30 [main] INFO  com.example.Application - Testdata: 3 bokningar tillagda.
+2025-11-06 13:02:37 [main] INFO  c.e.repository.BookingRepository - Sorterar bokningar efter datum.
+2025-11-06 13:02:49 [main] INFO  c.e.repository.BookingRepository - Bokning med ID 2 borttagen.
+2025-11-06 13:02:49 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 2 avbokad.
+2025-11-06 13:03:00 [main] INFO  com.example.service.BookingService - Bokning med ID 1 är klar.
+2025-11-06 13:03:00 [main] INFO  com.example.service.EmailService - Mail skickat till anna@email.com
+2025-11-06 13:03:00 [main] INFO  com.example.menu.BookingMenu - Bokningen med ID 1 är markerad som klar.
+2025-11-06 13:03:14 [main] INFO  c.e.repository.BookingRepository - Bokning med ID 3 uppdaterad.
+2025-11-06 13:03:14 [main] INFO  com.example.service.BookingService - Bokning med ID 3 uppdaterades.
+2025-11-06 13:03:14 [main] INFO  com.example.menu.BookingMenu - Bokning med ID 3 uppdaterades.
+2025-11-06 13:03:23 [main] INFO  com.example.Application - Programmet avslutas och Scanner stängs.
