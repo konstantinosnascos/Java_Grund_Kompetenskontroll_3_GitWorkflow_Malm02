@@ -10,17 +10,12 @@ import com.example.repository.BookingRepository;
 import com.example.service.BookingService;
 import com.example.service.EmailService;
 import com.example.exception.BookingConflictException;
-import com.example.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.SQLOutput;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class BookingMenu {
 
@@ -94,7 +89,7 @@ public class BookingMenu {
 
         do{
             regNum = input.getString("Fordonets registreringsnummer (t.ex. ABC12A): ");
-                if (!validator.isValid(regNum)){
+            if (!validator.isValid(regNum)){
                 System.out.println("Felaktig format. Försök igen! (format: AAA-99(A/9))");
 
             }
@@ -120,21 +115,24 @@ public class BookingMenu {
             default -> ServiceType.SERVICE;
         };
 
-        System.out.println("Du valde" + serviceType);
+        System.out.println("Du valde " + serviceType);
+
+        // 👇 NYTT — Fråga efter åtgärd om reparation
+        String action = null;
+        if (serviceType == ServiceType.REPARATION) {
+            action = input.getString("Beskriv vad som ska repareras (åtgärd): ");
+        }
 
         showAvailableBookings();
         String bookTime = input.getString("Bokningstid: ").trim().toUpperCase();
 
-        // Hämta vald tid från repository via koden användaren skrev
         LocalDateTime chosenTime = bookingService.getAvailableTimes().get(bookTime);
 
-        // Om koden inte finns
         if (chosenTime == null ) {
             System.out.println("Ogiltig kod. Ingen bokning skapad.");
             return;
         }
 
-        // Om användaren vill avbryta sin bokning
         String confirm = input.getString("Vill du skapa denna bokning [(y)es/(n)o]:").trim().toLowerCase();
         if (confirm.equals("n") || confirm.equals("no"))
         {
@@ -143,9 +141,9 @@ public class BookingMenu {
         }
 
         try {
-            // Skapa bokningen och hämta tillbaka den
-            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType, bookTime);
-            System.out.println("\nBokning skapad!");
+            // 👇 Uppdaterad metod med åtgärd
+            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType, action);
+            System.out.println("\n Bokning skapad!");
             newBooking.printInfo(FORMATTER);
 
             logger.info("Ny bokning skapad för kund: {} vid tid: {}", name, chosenTime.format(FORMATTER));
@@ -177,7 +175,7 @@ public class BookingMenu {
             case 1 -> bookingsToDisplay.add(
                     bookingService.bookingRepository.getBooking(input.getInt("Boknings ID: ")));
             case 2 -> bookingsToDisplay.addAll(
-                bookingService.bookingRepository.getBookingsSortedByDate());
+                    bookingService.bookingRepository.getBookingsSortedByDate());
             case 3 -> bookingsToDisplay.addAll(
                     bookingService.bookingRepository.getBookingsSortedByStatus());
             case 0 -> {return;}
@@ -196,7 +194,7 @@ public class BookingMenu {
         System.out.println("\n---> Tillgängliga tider <---");
 
         var times = bookingService.getAvailableTimes();
-        
+
         times.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .forEach(entry-> System.out.printf("%s → %s%n",
@@ -290,6 +288,7 @@ public class BookingMenu {
             logger.warn("Kunde inte markera bokning som klar.");
         }
     }
+
     private void editBooking() {
         System.out.println("\n--- Redigera bokning ---");
         int bookingId = input.getInt("Ange boknings-ID att redigera: ");
@@ -304,7 +303,6 @@ public class BookingMenu {
         System.out.println("Nuvarande bokning:");
         System.out.println(existing);
 
-        // Kunduppgifter – namn och e-post
         String newName = input.getOptionalString("Nytt namn (" + existing.getCustomer().getName() + "): ");
         String newEmail = input.getOptionalString("Ny e-post (" + existing.getCustomer().getEmail() + "): ");
         if (!newEmail.isBlank() && !emailValidator.isValid(newEmail)) {
@@ -316,7 +314,6 @@ public class BookingMenu {
         updatedCustomer.setName(newName.isBlank() ? existing.getCustomer().getName() : newName);
         updatedCustomer.setEmail(newEmail.isBlank() ? existing.getCustomer().getEmail() : newEmail);
 
-        // Fordonsuppgifter
         String newModel = input.getOptionalString("Ny bilmodell (" + existing.getVehicle().getModel() + "): ");
         String newReg = input.getOptionalString("Nytt registreringsnummer (" + existing.getVehicle().getRegNum() + "): ");
         if (!newReg.isBlank() && !validator.isValid(newReg)) {
@@ -332,14 +329,12 @@ public class BookingMenu {
                 newYear == -1 ? existing.getVehicle().getYear() : newYear
         );
 
-        // Datum och tid
         LocalDateTime currentDateTime = existing.getDate();
         LocalDateTime newDateTime = input.getOptionalDateTime(
                 "Nytt datum och tid (yyyy-MM-dd HH:mm) [" + currentDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + "]: "
         );
         LocalDateTime finalDateTime = (newDateTime == null) ? currentDateTime : newDateTime;
 
-        // Tjänstetyp
         System.out.println("Välj ny tjänstetyp:");
         System.out.println("1. Service");
         System.out.println("2. Reparation");
@@ -352,7 +347,15 @@ public class BookingMenu {
             default -> existing.getServiceType();
         };
 
-        // Status
+        // 👇 NYTT — fråga efter ny åtgärd om reparation
+        String newAction = existing.getAction();
+        if (newType == ServiceType.REPARATION) {
+            String editedAction = input.getOptionalString("Ny åtgärd (" + (newAction == null ? "ingen" : newAction) + "): ");
+            if (!editedAction.isBlank()) {
+                newAction = editedAction;
+            }
+        }
+
         System.out.println("Ändra status:");
         System.out.println("1. Inte klar");
         System.out.println("2. Klar");
@@ -360,10 +363,9 @@ public class BookingMenu {
         boolean newStatus = switch (statusChoice) {
             case 1 -> false;
             case 2 -> true;
-            default -> existing.isCompleted(); // Behåll nuvarande status
+            default -> existing.isCompleted();
         };
 
-        // Skapa uppdaterad bokning
         Booking updated = new Booking(
                 bookingId,
                 updatedCustomer,
@@ -371,10 +373,10 @@ public class BookingMenu {
                 finalDateTime,
                 newType,
                 existing.getPrice(),
-                newStatus
+                newStatus,
+                newAction
         );
 
-        // Bekräftelse
         String confirm = input.getOptionalString("Vill du spara ändringarna? [(y)es/(n)o]: ").toLowerCase();
         if (confirm.equals("n") || confirm.equals("no")) {
             System.out.println("Ändringar avbröts.");
@@ -382,7 +384,6 @@ public class BookingMenu {
             return;
         }
 
-        // Spara ändringar
         boolean success = bookingService.editBooking(bookingId, updated);
         if (success) {
             System.out.println("Bokning uppdaterad.");
@@ -392,8 +393,4 @@ public class BookingMenu {
             logger.warn("Misslyckades med att uppdatera bokning med ID {}", bookingId);
         }
     }
-
-
-
-
 }
