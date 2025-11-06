@@ -78,11 +78,11 @@ public class BookingRepository {
     //f4-visa alla bokningar
     public void displayAllBookings(){
         if(bookings.isEmpty()){
-            System.out.println("Inga bokningar finns.");
+            LOG.info("Inga bokningar att visa.");
             return;
         }
         for(Booking booking : bookings.values()){
-            System.out.println("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", Status: " + booking.isCompleted());
+            LOG.info("ID: " + booking.getId() + ", Datum: " + booking.getDate() + ", price: " + booking.getPrice());
         }
 
     }
@@ -95,6 +95,15 @@ public class BookingRepository {
             return null;
         }
 
+
+//       LOG.info("Visar detaljer för bokning med ID {}.", id);
+//        System.out.println("=== Bokningsdetaljer ===");
+//        System.out.println("ID: " + booking.getId());
+//        System.out.println("Datum: " + booking.getDate());
+//        //System.out.println("Kund: " + booking.getCustomerName());
+//        System.out.println("Tjänst: " + booking.getServiceType());
+//        System.out.println("Pris: " + booking.getPrice());
+//        System.out.println("status: " + booking.isCompleted());
         return booking;
     }
 
