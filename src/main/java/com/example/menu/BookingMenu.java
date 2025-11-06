@@ -117,7 +117,7 @@ public class BookingMenu {
 
         System.out.println("Du valde " + serviceType);
 
-        // 👇 NYTT — Fråga efter åtgärd om reparation
+        //  NYTT — Fråga efter åtgärd om reparation
         String action = null;
         if (serviceType == ServiceType.REPARATION) {
             action = input.getString("Beskriv vad som ska repareras (åtgärd): ");
@@ -141,8 +141,8 @@ public class BookingMenu {
         }
 
         try {
-            // 👇 Uppdaterad metod med åtgärd
-            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType, action);
+            //  Uppdaterad metod med åtgärd
+            Booking newBooking = bookingService.createBooking(customer, vehicle, chosenTime, serviceType, bookTime, action);
             System.out.println("\n Bokning skapad!");
             newBooking.printInfo(FORMATTER);
 
@@ -347,7 +347,7 @@ public class BookingMenu {
             default -> existing.getServiceType();
         };
 
-        // 👇 NYTT — fråga efter ny åtgärd om reparation
+        //  NYTT — fråga efter ny åtgärd om reparation
         String newAction = existing.getAction();
         if (newType == ServiceType.REPARATION) {
             String editedAction = input.getOptionalString("Ny åtgärd (" + (newAction == null ? "ingen" : newAction) + "): ");

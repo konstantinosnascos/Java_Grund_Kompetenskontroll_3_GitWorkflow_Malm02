@@ -12,7 +12,7 @@ public class Booking {
     private ServiceType serviceType;
     private double price;
     private boolean completed;
-    private String action; // 👈 nytt attribut för åtgärd (endast vid reparation)
+    private String action; //  nytt attribut för åtgärd (endast vid reparation)
 
     // Konstruktor utan ID (för ny bokning)
     public Booking(Customer customer, Vehicle vehicle, LocalDateTime date, ServiceType serviceType, double price, boolean completed, String action) {
@@ -74,7 +74,7 @@ public class Booking {
         }
         System.out.println("Datum & tid: " + date.format(formatter));
         System.out.println("Pris: " + price + " kr");
-        System.out.println("Status: " + (completed ? "✅ Klar" : "⏳ Inte klar"));
+        System.out.println("Status: " + (completed ? "Klar" : "Inte klar"));
     }
 
     @Override
