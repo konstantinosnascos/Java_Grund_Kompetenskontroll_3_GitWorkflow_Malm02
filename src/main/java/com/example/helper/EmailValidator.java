@@ -9,17 +9,25 @@ public class EmailValidator {
     private static final Logger logger = LoggerFactory.getLogger(EmailValidator.class);
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
-            "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$"
+            "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
     );
 
-    public boolean isValid(String email)
-    {
-        if (email== null|| email.trim().isEmpty()){
-            logger.warn("Ogiltig email: {}", email);
+    public boolean isValid(String email) {
+
+        if (email == null || email.trim().isEmpty()) {
+            logger.warn("Ogiltig email: tom sträng");
             return false;
         }
 
-        logger.info("Email godkänd: {}", email);
-        return true;
+
+        boolean matches = EMAIL_PATTERN.matcher(email.trim()).matches();
+
+        if (matches) {
+            logger.info("Email godkänd: {}", email);
+        } else {
+            logger.warn("Ogiltig email-format: {}", email);
+        }
+
+        return matches;
     }
 }

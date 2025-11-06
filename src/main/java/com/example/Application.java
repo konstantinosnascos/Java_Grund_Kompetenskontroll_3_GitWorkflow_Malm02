@@ -44,7 +44,7 @@ public class Application {
                     .plusDays(3)
                     .plusHours(15);
 
-            bookingService.createBooking(customer1, vehicle1, bookingTime1, ServiceType.SERVICE);
+            bookingService.createBooking(customer1, vehicle1, bookingTime1, ServiceType.SERVICE, "T001");
 
 
             Customer customer2 = new Customer();
@@ -57,7 +57,7 @@ public class Application {
                     .plusDays(1)
                     .withHour(14);
 
-            bookingService.createBooking(customer2, vehicle2, bookingTime2, ServiceType.REPARATION);
+            bookingService.createBooking(customer2, vehicle2, bookingTime2, ServiceType.REPARATION, "T005");
 
 
             Customer customer3 = new Customer();
@@ -69,7 +69,7 @@ public class Application {
                     .plusDays(9)
                     .plusHours(15);
 
-            bookingService.createBooking(customer3, vehicle3, bookingTime3, ServiceType.BESIKTNING);
+            bookingService.createBooking(customer3, vehicle3, bookingTime3, ServiceType.BESIKTNING, "T008");
 
             logger.info("Testdata: 3 bokningar tillagda.");
         } catch (Exception e)
