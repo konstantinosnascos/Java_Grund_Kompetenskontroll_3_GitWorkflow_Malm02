@@ -9,10 +9,8 @@ vi låta användaren mata in ett lättare referens som
 vi då kan använda som en nyckel för att hitta den 
 eftertraktade objektet.
 
-I **BookingMenu** vi oss av vanliga Listor som ArrayLists
-och LinkedLists då de används för mer temporära ändamål. LinkedLists
-används för att lägga in flera gånger och kanske senare kunna också
-ta bort enligt användarens önskningar.
+I **BookingMenu** använder vi oss av vanliga Listor 
+som ArrayLists då de används för mer temporära ändamål.
 
 ### Git
 Det var första gången vi aktivt jobbat med git i gruppen.

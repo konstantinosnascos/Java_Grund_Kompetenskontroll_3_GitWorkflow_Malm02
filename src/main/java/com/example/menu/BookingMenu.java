@@ -117,7 +117,7 @@ public class BookingMenu {
 
         System.out.println("Du valde " + serviceType);
 
-        //  NYTT — Fråga efter åtgärd om reparation
+        //Fråga efter åtgärd om reparation
         String action = null;
         if (serviceType == ServiceType.REPARATION) {
             action = input.getString("Beskriv vad som ska repareras (åtgärd): ");
@@ -159,15 +159,15 @@ public class BookingMenu {
         }
     }
 
-    private void showAllBookings() {
-
+    private void showAllBookings()
+    {
         System.out.println("\n--- Alternativ ---");
         System.out.println("1. Hitta Bokning");
         System.out.println("2. Visa Bokningar efter Datum");
         System.out.println("3. Visa Bokningar efter Status");
         System.out.println("0. Gå tillbaka");
 
-        List<Booking> bookingsToDisplay = new LinkedList<>();
+        List<Booking> bookingsToDisplay = new ArrayList<>();
 
         int choice = input.getInt("");
         switch (choice)
@@ -181,7 +181,7 @@ public class BookingMenu {
             case 0 -> {return;}
         }
 
-        if (bookingsToDisplay.isEmpty())
+        if (bookingsToDisplay.isEmpty() || bookingsToDisplay.get(0) == null)
         {
             return;
         }
@@ -347,7 +347,7 @@ public class BookingMenu {
             default -> existing.getServiceType();
         };
 
-        //  NYTT — fråga efter ny åtgärd om reparation
+        //  Fråga efter ny åtgärd om reparation
         String newAction = existing.getAction();
         if (newType == ServiceType.REPARATION) {
             String editedAction = input.getOptionalString("Ny åtgärd (" + (newAction == null ? "ingen" : newAction) + "): ");
